@@ -1,0 +1,180 @@
+import { Student, Bus, Route, Trip } from "./types";
+
+export const UNT_CAREERS: string[] = [
+  "Administración",
+  "Ingeniería de Sistemas",
+  "Ingeniería Industrial",
+  "Ingeniería Mecánica",
+  "Agronomía",
+  "Ingeniería Agroindustrial",
+  "Trabajo Social",
+  "Contabilidad",
+  "Enfermería",
+  "Informática"
+];
+
+export const UNT_STUDENTS: Student[] = [
+  {
+    id: "std-001",
+    code: "1020304021",
+    name: "Carlos Eduardo",
+    lastName: "Mendoza Silva",
+    career: "Ingeniería de Sistemas",
+    phone: "948123456",
+    email: "cmendozas@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-002",
+    code: "1020304022",
+    name: "Ana Lucía",
+    lastName: "Ramírez Vega",
+    career: "Administración",
+    phone: "951789456",
+    email: "aramirezv@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-003",
+    code: "1020304023",
+    name: "Jhonatan David",
+    lastName: "Alva Flores",
+    career: "Informática",
+    phone: "944561234",
+    email: "jalvaf@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-004",
+    code: "1020304024",
+    name: "Valeria Sofía",
+    lastName: "Benites Castillo",
+    career: "Ingeniería Industrial",
+    phone: "978120345",
+    email: "vbenitesc@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-005",
+    code: "1020304025",
+    name: "Piero André",
+    lastName: "Chávez Quiroz",
+    career: "Ingeniería Mecánica",
+    phone: "963258741",
+    email: "pchavezq@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-006",
+    code: "1020304026",
+    name: "María Fernanda",
+    lastName: "Paredes Ruiz",
+    career: "Agronomía",
+    phone: "987654321",
+    email: "mparedesr@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-007",
+    code: "1020304027",
+    name: "Luis Alberto",
+    lastName: "Gutiérrez Sánchez",
+    career: "Enfermería",
+    phone: "949112233",
+    email: "lgutierrezs@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-008",
+    code: "1020304028",
+    name: "Camila Nicole",
+    lastName: "Romero Díaz",
+    career: "Contabilidad",
+    phone: "955443322",
+    email: "cromerod@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-009",
+    code: "1020304029",
+    name: "Diego Sebastián",
+    lastName: "Torres Morales",
+    career: "Ingeniería Agroindustrial",
+    phone: "991827364",
+    email: "dtorresm@unitru.edu.pe",
+    role: "STUDENT",
+  },
+  {
+    id: "std-010",
+    code: "1020304030",
+    name: "Jimena Ross",
+    lastName: "Ramos Chávez",
+    career: "Trabajo Social",
+    phone: "982345678",
+    email: "jramosch@unitru.edu.pe",
+    role: "STUDENT",
+  }
+];
+
+export const UNT_BUSES: Bus[] = [
+  {
+    id: "bus-001",
+    plateNumber: "EGB-123",
+    unitNumber: "Bus UNT #01",
+    capacity: 40,
+    driverName: "Manuel Morales Cerna",
+  },
+  {
+    id: "bus-002",
+    plateNumber: "UNT-456",
+    unitNumber: "Bus UNT #02",
+    capacity: 45,
+    driverName: "Jorge Bazán Rodríguez",
+  },
+  {
+    id: "bus-003",
+    plateNumber: "T1B-789",
+    unitNumber: "Bus UNT #03",
+    capacity: 35,
+    driverName: "Roberto Carranza Miranda",
+  },
+];
+
+export const UNT_ROUTES: Route[] = [
+  {
+    id: "route-001",
+    name: "Ciudad Universitaria -> Local Central -> Huanchaco",
+    origin: "Ciudad Universitaria (Av. Juan Pablo II)",
+    destination: "Balneario de Huanchaco",
+  },
+  {
+    id: "route-002",
+    name: "Local Central -> Ciudad Universitaria -> La Esperanza",
+    origin: "Local Central UNT (Jr. San Martín)",
+    destination: "Paradero La Esperanza",
+  },
+  {
+    id: "route-003",
+    name: "Ciudad Universitaria -> Buenos Aires -> Salaverry",
+    origin: "Ciudad Universitaria",
+    destination: "Distrito de Salaverry",
+  },
+  {
+    id: "route-004",
+    name: "Ciudad Universitaria -> El Porvenir -> Laredo",
+    origin: "Ciudad Universitaria",
+    destination: "Plaza de Armas Laredo",
+  },
+];
+
+export const INITIAL_TRIP: Trip = {
+  id: "trip-unt-001",
+  busId: UNT_BUSES[0].id,
+  routeId: UNT_ROUTES[0].id,
+  departureTime: new Date().toISOString(),
+  status: "IN_PROGRESS",
+  bus: UNT_BUSES[0],
+  route: UNT_ROUTES[0],
+  createdAt: new Date().toISOString(),
+  boardings: [],
+};

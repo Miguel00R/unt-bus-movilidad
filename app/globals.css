@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-unt: #002B66;
+  --gold-unt: #D4AF37;
+  --accent-blue: #2563EB;
+}
+
+body {
+  font-family: var(--font-main), system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.55);
+}
+
+/* Laser scan animation */
+@keyframes laserSweep {
+  0% { transform: translateY(-70px); opacity: 0.9; }
+  50% { opacity: 1; }
+  100% { transform: translateY(70px); opacity: 0.9; }
+}
+
+.animate-laser {
+  animation: laserSweep 2s ease-in-out infinite alternate;
+}

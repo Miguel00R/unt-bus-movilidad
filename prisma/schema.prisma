@@ -1,0 +1,81 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  STUDENT
+  DRIVER
+  ADMIN
+}
+
+enum TripStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id          String     @id @default(uuid())
+  email       String     @unique
+  name        String
+  lastName    String
+  code        String?    @unique // Código de matrícula UNT (ej. 1020304021)
+  career      String?    // Escuela Profesional / Carrera
+  phone       String?
+  role        Role       @default(STUDENT)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  boardings   Boarding[]
+}
+
+model Bus {
+  id          String     @id @default(uuid())
+  plateNumber String     @unique // Placa (ej. EGB-123)
+  unitNumber  String?    // Número de unidad / Bus UNT #01
+  capacity    Int        @default(40)
+  driverName  String
+  trips       Trip[]
+}
+
+model Route {
+  id          String     @id @default(uuid())
+  name        String     // ej. Ciudad Universitaria -> Local Central -> Huanchaco
+  origin      String
+  destination String
+  trips       Trip[]
+}
+
+model Trip {
+  id            String     @id @default(uuid())
+  busId         String
+  routeId       String
+  departureTime DateTime   @default(now())
+  status        TripStatus @default(IN_PROGRESS)
+  bus           Bus        @relation(fields: [busId], references: [id])
+  route         Route      @relation(fields: [routeId], references: [id])
+  boardings     Boarding[]
+  createdAt     DateTime   @default(now())
+}
+
+model Boarding {
+  id            String     @id @default(uuid())
+  tripId        String
+  studentCode   String
+  fullName      String
+  career        String
+  phone         String
+  signatureData String     @db.Text // Data URL Base64 de la imagen de la firma
+  boardedAt     DateTime   @default(now())
+  trip          Trip       @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  user          User?      @relation(fields: [studentCode], references: [code])
+
+  @@index([tripId])
+  @@index([studentCode])
+}

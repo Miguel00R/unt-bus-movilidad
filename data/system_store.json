@@ -1,0 +1,115 @@
+{
+  "activeViajeId": 1794257034160,
+  "viajes": [
+    {
+      "id": 1794257034160,
+      "chofer": "Carlos Mendoza",
+      "placa": "T2B-964",
+      "origen": "Filial Jequetepeque",
+      "destino": "Chepén / Guadalupe",
+      "ruta": "Ruta A - Chepén",
+      "turno": "Mañana",
+      "horaSalida": "03:43 p. m.",
+      "horaLlegada": "",
+      "fecha": "2026-11-09",
+      "totalAsientos": 48,
+      "cerrado": false
+    },
+    {
+      "id": 1794256989932,
+      "chofer": "Carlos Mendoza",
+      "placa": "T2B-964",
+      "origen": "Filial Jequetepeque",
+      "destino": "Chepén / Guadalupe",
+      "ruta": "Ruta A - Chepén",
+      "turno": "Mañana",
+      "horaSalida": "03:43 p. m.",
+      "horaLlegada": "",
+      "fecha": "2026-11-09",
+      "totalAsientos": 48,
+      "cerrado": true
+    },
+    {
+      "id": 1001,
+      "chofer": "Carlos Mendoza",
+      "placa": "T2B-964",
+      "origen": "Filial Jequetepeque",
+      "destino": "Chepén / Guadalupe",
+      "ruta": "Ruta A - Chepén",
+      "turno": "Mañana",
+      "horaSalida": "03:26 p. m.",
+      "horaLlegada": "",
+      "fecha": "2026-11-09",
+      "totalAsientos": 48,
+      "cerrado": true
+    }
+  ],
+  "pasajeros": [],
+  "estudiantes": [
+    {
+      "id": 1,
+      "codigo": "1052300512",
+      "nombres": "Carlos Alberto",
+      "apellidos": "García Vega",
+      "carrera": "Agronomía",
+      "lugar": "Guadalupe"
+    },
+    {
+      "id": 2,
+      "codigo": "1052100122",
+      "nombres": "Jhon Robinson",
+      "apellidos": "Llique Chávarry",
+      "carrera": "Ingeniería de Sistemas",
+      "lugar": "Pacasmayo"
+    },
+    {
+      "id": 3,
+      "codigo": "1052100890",
+      "nombres": "Ana Lucía",
+      "apellidos": "Rojas Mendoza",
+      "carrera": "Ingeniería de Sistemas",
+      "lugar": "San Pedro de Lloc"
+    },
+    {
+      "id": 4,
+      "codigo": "1052200341",
+      "nombres": "María Fernanda",
+      "apellidos": "Torres Silva",
+      "carrera": "Administración",
+      "lugar": "Chepén"
+    },
+    {
+      "id": 5,
+      "codigo": "1052100455",
+      "nombres": "Diana Carolina",
+      "apellidos": "Vásquez Paredes",
+      "carrera": "Trabajo Social",
+      "lugar": "Pacasmayo"
+    },
+    {
+      "id": 6,
+      "codigo": "1052200612",
+      "nombres": "Luis Fernando",
+      "apellidos": "Quiroz Benites",
+      "carrera": "Ingeniería Mecánica",
+      "lugar": "Guadalupe"
+    },
+    {
+      "id": 7,
+      "codigo": "1052300789",
+      "nombres": "Jorge Anthony",
+      "apellidos": "Saldaña Cruz",
+      "carrera": "Ingeniería Agroindustrial",
+      "lugar": "Chepén"
+    },
+    {
+      "id": 1794257413173,
+      "codigo": "1020304021",
+      "nombres": "Carlos Eduardo Mendoza Silva",
+      "apellidos": "Mendoza Silva",
+      "carrera": "Ingeniería de Sistemas",
+      "lugar": "Pacasmayo"
+    }
+  ],
+  "lastUpdated": 1794257565395
+}
