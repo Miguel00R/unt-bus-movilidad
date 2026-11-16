@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
         emailSent = true;
       } catch (err: any) {
         console.error("Error al enviar email vía Nodemailer:", err);
-        emailError = err?.message || "Error al conectar con el servidor de correo";
+        emailError = `${err?.message || "Error de autenticación"} [Usuario enviado a Google: "${smtpUser}" | Clave probada: "${smtpPass.slice(0, 3)}***${smtpPass.slice(-2)}" (longitud: ${smtpPass.length} letras)]`;
       }
     } else {
       console.warn("Variables SMTP no configuradas. Configure GMAIL_USER y GMAIL_APP_PASSWORD en Vercel.");
