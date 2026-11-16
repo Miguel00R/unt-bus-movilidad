@@ -37,33 +37,51 @@ export async function POST(req: NextRequest) {
     const rawSmtpUser =
       process.env.GMAIL_USER ||
       process.env.SMTP_USER ||
-      process.env.EMAIL_USER;
+      process.env.EMAIL_USER ||
+      process.env.USUARIO_DE_GMAIL ||
+      "miguelquesquenrodas@gmail.com";
+
     const rawSmtpPass =
       process.env.GMAIL_APP_PASSWORD ||
       process.env.SMTP_PASS ||
-      process.env.EMAIL_PASS;
+      process.env.EMAIL_PASS ||
+      process.env.CONTRASENA_DE_APLICACION;
+
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = parseInt(process.env.SMTP_PORT || "465", 10);
 
-    const smtpUser = (rawSmtpUser || "").trim();
-    const smtpPass = (rawSmtpPass || "").replace(/\s+/g, "").trim();
+    const smtpUser = (rawSmtpUser || "").trim().toLowerCase();
+    // Limpiar espacios y caracteres extraños: las contraseñas de Google son 16 letras estrictas
+    const smtpPass = (rawSmtpPass || "").replace(/[^a-zA-Z]/g, "").toLowerCase();
 
     let emailSent = false;
     let emailError: string | null = null;
 
-    if (smtpUser && smtpPass) {
+    if (rawSmtpPass) {
+      if (!smtpHost && smtpPass.length !== 16) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: `La clave en Vercel tiene ${rawSmtpPass.trim().length} caracteres (empieza por "${rawSmtpPass.slice(0, 4)}..."). Debe ser la contraseña de 16 letras de Google (ej: abcd efgh ijkl mnop).`,
+          },
+          { status: 400 }
+        );
+      }
+
       try {
         const transportConfig = smtpHost
           ? {
-              host: smtpHost,
-              port: smtpPort,
-              secure: smtpPort === 465,
-              auth: { user: smtpUser, pass: smtpPass },
-            }
+            host: smtpHost,
+            port: smtpPort,
+            secure: smtpPort === 465,
+            auth: { user: smtpUser, pass: rawSmtpPass.trim() },
+          }
           : {
-              service: "gmail",
-              auth: { user: smtpUser, pass: smtpPass },
-            };
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: { user: smtpUser, pass: smtpPass },
+          };
 
         const transporter = nodemailer.createTransport(transportConfig);
 
