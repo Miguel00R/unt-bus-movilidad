@@ -126,51 +126,9 @@ export function authenticate(
     };
   }
 
-  // Si tiene formato de correo institucional @unitru.edu.pe pero no está en la lista inicial:
-  if (cleanId.endsWith("@unitru.edu.pe")) {
-    const usernamePart = cleanId.split("@")[0];
-    const formattedName = usernamePart
-      .split(/[._-]/)
-      .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-      .join(" ");
-
-    return {
-      success: true,
-      user: {
-        id: `std-${Date.now()}`,
-        role: "STUDENT",
-        name: formattedName || "Estudiante",
-        lastName: "UNT",
-        identifier: cleanId,
-        studentCode: "1020304021",
-        subTitle: "Pregrado UNT",
-        email: cleanId,
-        phone: "948123456",
-      },
-    };
-  }
-
-  // Si ingresó su código de matrícula numérico
-  if (/^\d{6,10}$/.test(cleanId)) {
-    return {
-      success: true,
-      user: {
-        id: `std-${cleanId}`,
-        role: "STUDENT",
-        name: "Estudiante UNT",
-        lastName: `(${cleanId})`,
-        identifier: cleanId,
-        studentCode: cleanId,
-        subTitle: "Pregrado UNT",
-        email: `${cleanId}@unitru.edu.pe`,
-        phone: "948123456",
-      },
-    };
-  }
-
   return {
     success: false,
-    error: "Usuario o código no registrado. Regístrese con su código de matrícula y correo @unitru.edu.pe.",
+    error: "Esta cuenta no está registrada en el sistema de movilidad. Por favor, crea una cuenta primero en 'Registrarse o Crear Cuenta'.",
   };
 }
 

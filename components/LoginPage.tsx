@@ -70,7 +70,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMsg(null);
@@ -88,19 +88,40 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
       return;
     }
 
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier: cleanId, password }),
+      });
+      const data = await res.json();
+      setIsLoading(false);
+
+      if (data.success && data.user) {
+        onLoginSuccess(data.user);
+      } else {
+        setErrorMsg(
+          data.error ||
+            "Esta cuenta no está registrada en el sistema. Debe registrarse primero para poder ingresar."
+        );
+      }
+    } catch {
+      // Respaldo de contingencia local
       const result = authenticate(identifier, password);
       setIsLoading(false);
 
       if (result.success && result.user) {
         onLoginSuccess(result.user);
       } else {
-        setErrorMsg(result.error || "Credenciales incorrectas");
+        setErrorMsg(
+          result.error ||
+            "Esta cuenta no está registrada. Por favor regístrese primero para poder ingresar."
+        );
       }
-    }, 450);
+    }
   };
 
-  const handleRegisterSubmit = (e: React.FormEvent) => {
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMsg(null);
@@ -113,21 +134,36 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
       return;
     }
 
-    setTimeout(() => {
-      const res = registerAccount({
-        name: regName,
-        lastName: regLastName,
-        code: regCode,
-        career: regCareer,
-        phone: regPhone,
-        email: cleanEmail,
-        password: regPassword,
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: regName,
+          lastName: regLastName,
+          code: regCode,
+          career: regCareer,
+          phone: regPhone,
+          email: cleanEmail,
+          password: regPassword,
+        }),
       });
-
+      const data = await res.json();
       setIsLoading(false);
 
-      if (res.success && res.user) {
-        // Sincronizar nuevo alumno a la base central en el servidor
+      if (data.success && data.user) {
+        // También respaldar en el almacenamiento local
+        registerAccount({
+          name: regName,
+          lastName: regLastName,
+          code: regCode,
+          career: regCareer,
+          phone: regPhone,
+          email: cleanEmail,
+          password: regPassword,
+        });
+
+        // Sincronizar nuevo alumno a la lista del admin
         fetch("/api/sync", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -146,14 +182,17 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
           }),
         }).catch(() => { });
 
-        setSuccessMsg("¡Cuenta creada exitosamente! Accediendo al sistema de movilidad...");
+        setSuccessMsg("¡Cuenta registrada exitosamente en la base de datos! Ingresando al sistema...");
         setTimeout(() => {
-          onLoginSuccess(res.user!);
+          onLoginSuccess(data.user);
         }, 650);
       } else {
-        setErrorMsg(res.error || "Error al crear la cuenta. Verifique los datos ingresados.");
+        setErrorMsg(data.error || "Error al registrar la cuenta en la base de datos.");
       }
-    }, 500);
+    } catch {
+      setIsLoading(false);
+      setErrorMsg("Error de conexión al guardar la cuenta. Verifique su internet.");
+    }
   };
 
   // Paso 1 de Recuperación: Solicitar Código al Correo
@@ -253,7 +292,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   };
 
   // Paso 2 de Recuperación: Validar Código y Establecer Nueva Contraseña
-  const handleVerifyAndReset = (e: React.FormEvent) => {
+  const handleVerifyAndReset = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMsg(null);
@@ -287,19 +326,29 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
       return;
     }
 
-    setTimeout(() => {
-      const res = resetPassword({
-        identifier: recEmail.trim().toLowerCase(),
-        studentCode: recCode.trim(),
-        newPassword: cleanNewPass,
-        verificationCode: cleanVerification,
-        expectedCode: recGeneratedCode,
+    try {
+      const res = await fetch("/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          identifier: recEmail.trim().toLowerCase(),
+          studentCode: recCode.trim(),
+          newPassword: cleanNewPass,
+        }),
       });
-
+      const data = await res.json();
       setIsLoading(false);
 
-      if (res.success) {
-        setSuccessMsg(res.message || "¡Contraseña actualizada con éxito! Redirigiendo al inicio de sesión...");
+      if (data.success) {
+        resetPassword({
+          identifier: recEmail.trim().toLowerCase(),
+          studentCode: recCode.trim(),
+          newPassword: cleanNewPass,
+          verificationCode: cleanVerification,
+          expectedCode: recGeneratedCode,
+        });
+
+        setSuccessMsg(data.message || "¡Contraseña actualizada con éxito! Redirigiendo al inicio de sesión...");
         setIdentifier(recEmail.trim().toLowerCase());
         setPassword(cleanNewPass);
         setTimeout(() => {
@@ -308,12 +357,15 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
           setRecVerificationCode("");
           setRecNewPassword("");
           setRecConfirmPassword("");
-          setSuccessMsg("Tu contraseña ha sido restablecida. Inicia sesión con tu nueva clave.");
+          setSuccessMsg("Tu contraseña ha sido restablecida en la base de datos. Inicia sesión con tu nueva clave.");
         }, 1500);
       } else {
-        setErrorMsg(res.error || "No se pudo restablecer la contraseña.");
+        setErrorMsg(data.error || "No se pudo restablecer la contraseña en la base de datos.");
       }
-    }, 550);
+    } catch {
+      setIsLoading(false);
+      setErrorMsg("Error de conexión al actualizar la contraseña.");
+    }
   };
 
   const switchToRegister = () => {
