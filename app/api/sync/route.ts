@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -75,7 +76,7 @@ const SEED_ESTUDIANTES = [
 const DATA_DIR = path.join(process.cwd(), "data");
 const STORE_PATH = path.join(DATA_DIR, "system_store.json");
 
-function loadStore(): ServerStore {
+function loadStoreFromDisk(): ServerStore {
   try {
     if (fs.existsSync(STORE_PATH)) {
       const raw = fs.readFileSync(STORE_PATH, "utf-8");
@@ -86,9 +87,10 @@ function loadStore(): ServerStore {
             activeViajeId: parsed.activeViajeId ?? null,
             viajes: Array.isArray(parsed.viajes) ? parsed.viajes : [],
             pasajeros: Array.isArray(parsed.pasajeros) ? parsed.pasajeros : [],
-            estudiantes: Array.isArray(parsed.estudiantes) && parsed.estudiantes.length > 0
-              ? parsed.estudiantes
-              : SEED_ESTUDIANTES,
+            estudiantes:
+              Array.isArray(parsed.estudiantes) && parsed.estudiantes.length > 0
+                ? parsed.estudiantes
+                : SEED_ESTUDIANTES,
             lastUpdated: parsed.lastUpdated || Date.now(),
           };
         }
@@ -98,28 +100,69 @@ function loadStore(): ServerStore {
     console.error("Error reading store from disk:", err);
   }
 
-  // Fallback initial store
-  const defaultStore: ServerStore = {
+  return {
     activeViajeId: null,
     viajes: [],
     pasajeros: [],
     estudiantes: SEED_ESTUDIANTES,
     lastUpdated: Date.now(),
   };
-
-  saveStore(defaultStore);
-  return defaultStore;
 }
 
-function saveStore(store: ServerStore) {
+async function loadStoreAsync(): Promise<ServerStore> {
+  // 1. Intentar leer desde PostgreSQL Supabase (Persistencia real en la nube)
+  try {
+    const record = await prisma.systemStore.findUnique({
+      where: { id: "singleton" },
+    });
+    if (record && record.data && typeof record.data === "object") {
+      const parsed: any = record.data;
+      return {
+        activeViajeId: parsed.activeViajeId ?? null,
+        viajes: Array.isArray(parsed.viajes) ? parsed.viajes : [],
+        pasajeros: Array.isArray(parsed.pasajeros) ? parsed.pasajeros : [],
+        estudiantes:
+          Array.isArray(parsed.estudiantes) && parsed.estudiantes.length > 0
+            ? parsed.estudiantes
+            : SEED_ESTUDIANTES,
+        lastUpdated: parsed.lastUpdated || Date.now(),
+      };
+    }
+  } catch (err) {
+    console.warn("No se pudo leer SystemStore de la base de datos, usando fallback:", err);
+  }
+
+  // 2. Si es la primera vez, cargar desde disco e inicializar en Supabase
+  const diskStore = loadStoreFromDisk();
+  try {
+    await prisma.systemStore.upsert({
+      where: { id: "singleton" },
+      update: { data: diskStore as any },
+      create: { id: "singleton", data: diskStore as any },
+    });
+  } catch { }
+  return diskStore;
+}
+
+async function saveStoreAsync(store: ServerStore): Promise<void> {
+  // 1. Guardar en Supabase PostgreSQL (100% persistente en Vercel)
+  try {
+    await prisma.systemStore.upsert({
+      where: { id: "singleton" },
+      update: { data: store as any },
+      create: { id: "singleton", data: store as any },
+    });
+  } catch (err) {
+    console.error("Error guardando SystemStore en PostgreSQL:", err);
+  }
+
+  // 2. Respaldo local en disco (para desarrollo)
   try {
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
     }
     fs.writeFileSync(STORE_PATH, JSON.stringify(store, null, 2), "utf-8");
-  } catch (err) {
-    console.error("Error persisting store to disk:", err);
-  }
+  } catch { }
 }
 
 const noCacheHeaders = {
@@ -128,9 +171,9 @@ const noCacheHeaders = {
   Expires: "0",
 };
 
-// GET /api/sync -> Always reads freshest state from disk
+// GET /api/sync -> Lee los datos más recientes desde Supabase PostgreSQL
 export async function GET() {
-  const store = loadStore();
+  const store = await loadStoreAsync();
   return NextResponse.json(
     {
       success: true,
@@ -140,12 +183,12 @@ export async function GET() {
   );
 }
 
-// POST /api/sync -> Mutates state and updates disk immediately
+// POST /api/sync -> Modifica el estado y lo guarda en Supabase PostgreSQL de inmediato
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { action, payload } = body;
-    const store = loadStore();
+    const store = await loadStoreAsync();
 
     store.lastUpdated = Date.now();
 
@@ -232,7 +275,7 @@ export async function POST(req: Request) {
         );
     }
 
-    saveStore(store);
+    await saveStoreAsync(store);
 
     return NextResponse.json(
       {

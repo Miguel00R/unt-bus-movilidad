@@ -222,7 +222,18 @@ export default function AdminPortal({
           if (data.lastUpdated) lastServerUpdatedRef.current = data.lastUpdated;
           if (data.activeViajeId !== undefined) setActiveViajeId(data.activeViajeId);
           if (Array.isArray(data.viajes)) setViajes(data.viajes);
-          if (Array.isArray(data.pasajeros)) setPasajeros(data.pasajeros);
+          if (Array.isArray(data.pasajeros)) {
+            setPasajeros((prev) => {
+              const map = new Map<number, UniPasajero>();
+              data.pasajeros.forEach((p: UniPasajero) => map.set(p.id, p));
+              prev.forEach((p) => {
+                if (!map.has(p.id)) map.set(p.id, p);
+              });
+              const merged = Array.from(map.values());
+              localStorage.setItem("unicontrol_pasajeros", JSON.stringify(merged));
+              return merged;
+            });
+          }
           if (Array.isArray(data.estudiantes)) setEstudiantes(data.estudiantes);
         }
       }
@@ -263,8 +274,16 @@ export default function AdminPortal({
         }
 
         if (Array.isArray(data.pasajeros)) {
-          setPasajeros(data.pasajeros);
-          localStorage.setItem("unicontrol_pasajeros", JSON.stringify(data.pasajeros));
+          setPasajeros((prev) => {
+            const map = new Map<number, UniPasajero>();
+            data.pasajeros.forEach((p: UniPasajero) => map.set(p.id, p));
+            prev.forEach((p) => {
+              if (!map.has(p.id)) map.set(p.id, p);
+            });
+            const merged = Array.from(map.values());
+            localStorage.setItem("unicontrol_pasajeros", JSON.stringify(merged));
+            return merged;
+          });
         }
 
         if (Array.isArray(data.estudiantes) && data.estudiantes.length > 0) {

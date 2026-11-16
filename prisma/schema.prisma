@@ -80,3 +80,9 @@ model Boarding {
   @@index([tripId])
   @@index([studentCode])
 }
+
+model SystemStore {
+  id        String   @id @default("singleton")
+  data      Json
+  updatedAt DateTime @updatedAt
+}
