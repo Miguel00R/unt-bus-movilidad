@@ -34,16 +34,19 @@ export async function POST(req: NextRequest) {
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutos de validez
 
     // Comprobar si existen credenciales SMTP configuradas en variables de entorno
-    const smtpUser =
+    const rawSmtpUser =
       process.env.GMAIL_USER ||
       process.env.SMTP_USER ||
       process.env.EMAIL_USER;
-    const smtpPass =
+    const rawSmtpPass =
       process.env.GMAIL_APP_PASSWORD ||
       process.env.SMTP_PASS ||
       process.env.EMAIL_PASS;
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = parseInt(process.env.SMTP_PORT || "465", 10);
+
+    const smtpUser = (rawSmtpUser || "").trim();
+    const smtpPass = (rawSmtpPass || "").replace(/\s+/g, "").trim();
 
     let emailSent = false;
     let emailError: string | null = null;
