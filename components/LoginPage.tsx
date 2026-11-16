@@ -25,9 +25,8 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [isRegisterMode, setIsRegisterMode] = useState(false);
 
   // Login form state
-  const [identifier, setIdentifier] = useState<string>("alumno@unitru.edu.pe");
-  const [password, setPassword] = useState<string>("unt2026");
-  const [selectedRole, setSelectedRole] = useState<Role>("STUDENT");
+  const [identifier, setIdentifier] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   // Registration form state
   const [regName, setRegName] = useState<string>("");
@@ -50,14 +49,19 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
     setSuccessMsg(null);
 
     const cleanId = identifier.trim().toLowerCase();
-    if (selectedRole === "STUDENT" && cleanId.includes("@") && !cleanId.endsWith("@unitru.edu.pe")) {
+    if (
+      cleanId !== "miguelquesquenrodas@gmail.com" &&
+      !cleanId.startsWith("miguelquesquen") &&
+      cleanId.includes("@") &&
+      !cleanId.endsWith("@unitru.edu.pe")
+    ) {
       setErrorMsg("Los alumnos deben ingresar obligatoriamente con su correo institucional (@unitru.edu.pe) o código de matrícula UNT.");
       setIsLoading(false);
       return;
     }
 
     setTimeout(() => {
-      const result = authenticate(selectedRole, identifier, password);
+      const result = authenticate(identifier, password);
       setIsLoading(false);
 
       if (result.success && result.user) {
@@ -122,13 +126,6 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
         setErrorMsg(res.error || "Error al crear la cuenta. Verifique los datos ingresados.");
       }
     }, 500);
-  };
-
-  const handleRolePreset = (role: Role, email: string) => {
-    setSelectedRole(role);
-    setIdentifier(email);
-    setPassword("unt2026");
-    setErrorMsg(null);
   };
 
   const switchToRegister = () => {
@@ -215,50 +212,16 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
           {/* MODE 1: LOGIN FORM */}
           {!isRegisterMode && (
             <>
-              {/* Quick Role Selector Chips (Admin, Conductor, Alumnos) */}
-              <div className="flex items-center justify-center gap-1.5 p-1 rounded-xl border text-xs font-sans bg-white/5 border-white/10">
-                <button
-                  type="button"
-                  onClick={() => handleRolePreset("STUDENT", "alumno@unitru.edu.pe")}
-                  className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all text-center ${selectedRole === "STUDENT"
-                      ? "bg-white/20 text-white shadow"
-                      : "text-slate-400 hover:text-white"
-                    }`}
-                >
-                  Alumnos
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleRolePreset("DRIVER", "conductor@unitru.edu.pe")}
-                  className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all text-center ${selectedRole === "DRIVER"
-                      ? "bg-amber-600/60 text-white shadow"
-                      : "text-slate-400 hover:text-white"
-                    }`}
-                >
-                  Conductor
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleRolePreset("ADMIN", "admin.transporte@unitru.edu.pe")}
-                  className={`flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all text-center ${selectedRole === "ADMIN"
-                      ? "bg-blue-600/60 text-white shadow"
-                      : "text-slate-400 hover:text-white"
-                    }`}
-                >
-                  Admin
-                </button>
-              </div>
-
               {/* Login Form */}
               <form onSubmit={handleLoginSubmit} className="space-y-4 pt-1">
-                {/* Field 1: Correo Electrónico Institucional */}
+                {/* Field 1: Correo Electrónico Institucional o Código */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <label className="text-xs font-medium block text-slate-300">
-                      Correo Electrónico Institucional
+                      Correo Electrónico o Código UNT
                     </label>
                     <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-800/60 px-1.5 py-0.5 rounded">
-                      @unitru.edu.pe
+                      Acceso Oficial
                     </span>
                   </div>
 
@@ -269,7 +232,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
                       required
                       value={identifier}
                       onChange={(e) => setIdentifier(e.target.value)}
-                      placeholder="alumno@unitru.edu.pe o código UNT"
+                      placeholder="Correo @unitru.edu.pe o código de matrícula"
                       className="w-full bg-transparent text-sm focus:outline-none font-normal text-white placeholder-slate-400"
                     />
                   </div>

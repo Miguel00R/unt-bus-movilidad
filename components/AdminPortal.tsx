@@ -141,7 +141,7 @@ export default function AdminPortal({
   const [selectedViajeDetail, setSelectedViajeDetail] = useState<UniViaje | null>(null);
 
   // New Trip form state
-  const [viajeChofer, setViajeChofer] = useState("Carlos Mendoza");
+  const [viajeChofer, setViajeChofer] = useState("Miguel Quesquén Rodas");
   const [viajePlaca, setViajePlaca] = useState("T2B-964");
   const [viajeOrigen, setViajeOrigen] = useState("Filial Jequetepeque");
   const [viajeDestino, setViajeDestino] = useState("Chepén / Guadalupe");
@@ -1742,7 +1742,7 @@ export default function AdminPortal({
                             ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-600"
                             : "bg-slate-900 border-slate-700/80 text-white placeholder-slate-500 focus:border-slate-500"
                           }`}
-                        placeholder="Ej: Carlos Mendoza"
+                        placeholder="Ej: Miguel Quesquén Rodas"
                         value={viajeChofer}
                         onChange={(e) => setViajeChofer(e.target.value)}
                         required

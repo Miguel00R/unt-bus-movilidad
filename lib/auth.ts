@@ -19,101 +19,76 @@ export interface AuthUser {
 export const DEMO_CREDENTIALS = [
   {
     role: "ADMIN" as Role,
-    roleTitle: "Administrador General",
-    institution: "Oficina General de Bienestar Universitario (OGBU)",
-    identifier: "admin.transporte@unitru.edu.pe",
-    name: "Dra. Carmen Rosa Valderrama",
-    pin: "admin123",
-    description: "Gestión global de flota, padrones, reportes oficiales y métricas.",
-  },
-  {
-    role: "DRIVER" as Role,
-    roleTitle: "Conductor / Operador",
-    institution: "Área de Transporte Institucional UNT",
-    identifier: "COND-01",
-    name: "Manuel Morales Cerna",
-    busInfo: "Bus UNT #01 — Placa EGB-123",
-    pin: "chofer123",
-    description: "Terminal de abordaje rápido, lector QR, firma táctil y control de aforo.",
+    roleTitle: "Administrador / Conductor Oficial",
+    institution: "Oficina General de Bienestar Universitario (OGBU) — UNT",
+    identifier: "miguelquesquenrodas@gmail.com",
+    name: "Miguel Quesquén Rodas",
+    pin: "militza*2003",
+    description: "Gestión global de flota, control de recorridos, despacho de viajes y padrones.",
   },
   {
     role: "STUDENT" as Role,
     roleTitle: "Alumno a Bordo / Estudiante",
     institution: "Pregrado — Universidad Nacional de Trujillo",
-    identifier: "1020304021",
+    identifier: "alumno@unitru.edu.pe",
     name: "Carlos Eduardo Mendoza Silva",
     subTitle: "Ingeniería de Sistemas",
     pin: "unt2026",
-    description: "Carné digital UNT, QR de abordaje, monitor de bus y estado de ruta.",
+    description: "Carné digital UNT, firma táctil de abordaje y estado de ruta.",
   },
 ];
 
 export function authenticate(
-  role: Role,
   identifier: string,
-  pin: string
+  pin: string,
+  role?: Role
 ): { success: boolean; user?: AuthUser; error?: string } {
   const cleanId = identifier.trim().toLowerCase();
   const cleanPin = pin.trim();
 
   if (!cleanId) {
-    return { success: false, error: "Por favor ingrese su correo o usuario institucional" };
+    return { success: false, error: "Por favor ingrese su correo electrónico o código institucional." };
   }
   if (!cleanPin) {
-    return { success: false, error: "Por favor ingrese su contraseña" };
+    return { success: false, error: "Por favor ingrese su contraseña." };
   }
 
-  // Institutional student email validation
-  if (role === "STUDENT" && cleanId.includes("@") && !cleanId.endsWith("@unitru.edu.pe")) {
-    return {
-      success: false,
-      error: "Los alumnos deben ingresar obligatoriamente con su correo institucional (@unitru.edu.pe) o su código de matrícula UNT.",
-    };
-  }
-
-  // 1. ADMIN Authentication
-  if (role === "ADMIN" || cleanId.startsWith("admin")) {
-    if (
-      cleanId === "admin" ||
-      cleanId === "admin.transporte@unitru.edu.pe" ||
-      cleanId === "admin@unitru.edu.pe" ||
-      cleanId === "admin@unt.edu.pe" ||
-      cleanId.includes("admin")
-    ) {
-      return {
-        success: true,
-        user: {
-          id: "usr-admin-01",
-          role: "ADMIN",
-          name: "Dra. Carmen Valderrama",
-          lastName: "Pinedo",
-          identifier: cleanId,
-          email: "admin.transporte@unitru.edu.pe",
-          subTitle: "Oficina General de Bienestar Universitario",
-          phone: "(044) 205600",
-        },
-      };
-    }
-  }
-
-  // 2. DRIVER Authentication
-  if (role === "DRIVER" || cleanId.includes("conductor") || cleanId.includes("chofer") || cleanId.startsWith("cond")) {
+  // 1. CONDUCTOR / ADMINISTRADOR OFICIAL (miguelquesquenrodas@gmail.com)
+  if (
+    cleanId === "miguelquesquenrodas@gmail.com" ||
+    cleanId.startsWith("miguelquesquen") ||
+    cleanId === "admin" ||
+    cleanId === "conductor" ||
+    cleanId === "admin.transporte@unitru.edu.pe" ||
+    cleanId === "conductor@unitru.edu.pe"
+  ) {
     const bus = UNT_BUSES[0];
     return {
       success: true,
       user: {
-        id: "usr-driver-01",
-        role: "DRIVER",
-        name: "Manuel Morales Cerna",
-        identifier: cleanId,
+        id: "usr-miguel-01",
+        role: "ADMIN",
+        name: "Miguel",
+        lastName: "Quesquén Rodas",
+        identifier: "miguelquesquenrodas@gmail.com",
+        email: "miguelquesquenrodas@gmail.com",
+        subTitle: "Conductor & Administrador Oficial UNT",
+        phone: "948123456",
         busInfo: `${bus.unitNumber} (${bus.plateNumber})`,
-        subTitle: `Conductor Oficial &bull; ${bus.unitNumber}`,
-        phone: "948999888",
       },
     };
   }
 
-  // 3. STUDENT Authentication (Default)
+  // 2. VALIDACIÓN DE ESTUDIANTES:
+  // Si ingresa un correo electrónico (contiene @), debe ser estrictamente @unitru.edu.pe
+  if (cleanId.includes("@") && !cleanId.endsWith("@unitru.edu.pe")) {
+    return {
+      success: false,
+      error: "Los alumnos deben ingresar obligatoriamente con su correo institucional (@unitru.edu.pe) o código de matrícula UNT.",
+    };
+  }
+
+  // 3. AUTENTICACIÓN DE ALUMNOS (Por código UNT o correo @unitru.edu.pe)
   let allStudents = [...UNT_STUDENTS];
   if (typeof window !== "undefined") {
     try {
@@ -132,21 +107,70 @@ export function authenticate(
       s.code.toLowerCase() === cleanId ||
       s.email.toLowerCase() === cleanId ||
       cleanId.includes(s.code.toLowerCase())
-  ) || allStudents[0];
+  );
+
+  if (matchedStudent) {
+    return {
+      success: true,
+      user: {
+        id: matchedStudent.id,
+        role: "STUDENT",
+        name: `${matchedStudent.name} ${matchedStudent.lastName}`,
+        lastName: matchedStudent.lastName,
+        identifier: cleanId.includes("@") ? cleanId : matchedStudent.code,
+        studentCode: matchedStudent.code,
+        subTitle: matchedStudent.career,
+        email: matchedStudent.email,
+        phone: matchedStudent.phone,
+      },
+    };
+  }
+
+  // Si tiene formato de correo institucional @unitru.edu.pe pero no está en la lista inicial:
+  if (cleanId.endsWith("@unitru.edu.pe")) {
+    const usernamePart = cleanId.split("@")[0];
+    const formattedName = usernamePart
+      .split(/[._-]/)
+      .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+      .join(" ");
+
+    return {
+      success: true,
+      user: {
+        id: `std-${Date.now()}`,
+        role: "STUDENT",
+        name: formattedName || "Estudiante",
+        lastName: "UNT",
+        identifier: cleanId,
+        studentCode: "1020304021",
+        subTitle: "Pregrado UNT",
+        email: cleanId,
+        phone: "948123456",
+      },
+    };
+  }
+
+  // Si ingresó su código de matrícula numérico
+  if (/^\d{6,10}$/.test(cleanId)) {
+    return {
+      success: true,
+      user: {
+        id: `std-${cleanId}`,
+        role: "STUDENT",
+        name: "Estudiante UNT",
+        lastName: `(${cleanId})`,
+        identifier: cleanId,
+        studentCode: cleanId,
+        subTitle: "Pregrado UNT",
+        email: `${cleanId}@unitru.edu.pe`,
+        phone: "948123456",
+      },
+    };
+  }
 
   return {
-    success: true,
-    user: {
-      id: matchedStudent.id,
-      role: "STUDENT",
-      name: `${matchedStudent.name} ${matchedStudent.lastName}`,
-      lastName: matchedStudent.lastName,
-      identifier: cleanId.includes("@") ? cleanId : matchedStudent.code,
-      studentCode: matchedStudent.code,
-      subTitle: matchedStudent.career,
-      email: matchedStudent.email,
-      phone: matchedStudent.phone,
-    },
+    success: false,
+    error: "Usuario o código no registrado. Regístrese con su código de matrícula y correo @unitru.edu.pe.",
   };
 }
 
