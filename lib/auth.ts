@@ -252,6 +252,8 @@ export interface ResetPasswordData {
   identifier: string;
   studentCode?: string;
   newPassword: string;
+  verificationCode?: string;
+  expectedCode?: string;
 }
 
 export function resetPassword(data: ResetPasswordData): { success: boolean; error?: string; message?: string } {
@@ -261,6 +263,12 @@ export function resetPassword(data: ResetPasswordData): { success: boolean; erro
 
   if (!cleanId) {
     return { success: false, error: "Por favor ingrese su correo electrónico institucional." };
+  }
+
+  if (data.expectedCode && data.verificationCode) {
+    if (data.verificationCode.trim() !== data.expectedCode.trim()) {
+      return { success: false, error: "El código de verificación de 6 dígitos es incorrecto." };
+    }
   }
 
   if (!newPass || newPass.length < 6) {

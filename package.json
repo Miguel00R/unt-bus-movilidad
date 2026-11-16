@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
     "build": "prisma generate && next build",
     "start": "next start",
     "postinstall": "prisma generate",
@@ -16,12 +15,14 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^5.22.0",
+    "@types/nodemailer": "^8.0.2",
     "clsx": "^2.1.1",
     "html5-qrcode": "^2.3.8",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "lucide-react": "^0.454.0",
     "next": "^14.2.15",
+    "nodemailer": "^10.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.1",
