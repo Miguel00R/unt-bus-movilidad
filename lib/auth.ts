@@ -248,4 +248,60 @@ export function registerAccount(data: NewAccountData): { success: boolean; user?
   return { success: true, user: authUser };
 }
 
+export interface ResetPasswordData {
+  identifier: string;
+  studentCode?: string;
+  newPassword: string;
+}
+
+export function resetPassword(data: ResetPasswordData): { success: boolean; error?: string; message?: string } {
+  const cleanId = data.identifier.trim().toLowerCase();
+  const cleanCode = (data.studentCode || "").trim().toLowerCase();
+  const newPass = data.newPassword.trim();
+
+  if (!cleanId) {
+    return { success: false, error: "Por favor ingrese su correo electrónico institucional." };
+  }
+
+  if (!newPass || newPass.length < 6) {
+    return { success: false, error: "La nueva contraseña debe tener al menos 6 caracteres." };
+  }
+
+  // 1. Administrador / Conductor
+  if (cleanId === "miguelquesquenrodas@gmail.com" || cleanId.startsWith("miguelquesquen")) {
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("unt_admin_custom_pin", newPass);
+      } catch {}
+    }
+    return {
+      success: true,
+      message: "Contraseña de Administrador / Conductor actualizada exitosamente.",
+    };
+  }
+
+  // 2. Alumnos
+  if (!cleanId.endsWith("@unitru.edu.pe")) {
+    return {
+      success: false,
+      error: "Para recuperar su cuenta de estudiante debe ingresar su correo institucional (@unitru.edu.pe).",
+    };
+  }
+
+  if (typeof window !== "undefined") {
+    try {
+      const storedPins = localStorage.getItem("unt_student_pins");
+      const pinMap: Record<string, string> = storedPins ? JSON.parse(storedPins) : {};
+      pinMap[cleanId] = newPass;
+      if (cleanCode) pinMap[cleanCode] = newPass;
+      localStorage.setItem("unt_student_pins", JSON.stringify(pinMap));
+    } catch {}
+  }
+
+  return {
+    success: true,
+    message: "¡Tu contraseña ha sido restablecida con éxito! Ya puedes ingresar con tu nueva clave.",
+  };
+}
+
 

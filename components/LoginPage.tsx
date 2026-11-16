@@ -10,10 +10,11 @@ import {
   GraduationCap,
   ArrowLeft,
   CheckCircle2,
-  IdCard
+  IdCard,
+  KeyRound
 } from "lucide-react";
 import { Role } from "@/lib/types";
-import { AuthUser, authenticate, registerAccount } from "@/lib/auth";
+import { AuthUser, authenticate, registerAccount, resetPassword } from "@/lib/auth";
 import { UNT_CAREERS } from "@/lib/mock-data";
 
 interface LoginPageProps {
@@ -21,8 +22,8 @@ interface LoginPageProps {
 }
 
 export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
-  // Mode toggle: Login vs Register
-  const [isRegisterMode, setIsRegisterMode] = useState(false);
+  // Mode toggle: Login vs Register vs Forgot Password
+  const [authView, setAuthView] = useState<"login" | "register" | "forgot">("login");
 
   // Login form state
   const [identifier, setIdentifier] = useState<string>("");
@@ -36,6 +37,12 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [regPhone, setRegPhone] = useState<string>("");
   const [regEmail, setRegEmail] = useState<string>("");
   const [regPassword, setRegPassword] = useState<string>("");
+
+  // Password Recovery form state
+  const [recEmail, setRecEmail] = useState<string>("");
+  const [recCode, setRecCode] = useState<string>("");
+  const [recNewPassword, setRecNewPassword] = useState<string>("");
+  const [recConfirmPassword, setRecConfirmPassword] = useState<string>("");
 
   // Feedback states
   const [isLoading, setIsLoading] = useState(false);
@@ -128,14 +135,87 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
     }, 500);
   };
 
+  const handleRecoverySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrorMsg(null);
+    setSuccessMsg(null);
+
+    const cleanEmail = recEmail.trim().toLowerCase();
+    const cleanCode = recCode.trim();
+
+    if (!cleanEmail) {
+      setErrorMsg("Ingrese su correo institucional o de administrador.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (
+      cleanEmail !== "miguelquesquenrodas@gmail.com" &&
+      !cleanEmail.startsWith("miguelquesquen") &&
+      !cleanEmail.endsWith("@unitru.edu.pe")
+    ) {
+      setErrorMsg("Para recuperar la cuenta de estudiante debe usar su correo institucional (@unitru.edu.pe).");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!cleanCode) {
+      setErrorMsg("Ingrese su código de matrícula UNT para verificar su identidad.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (recNewPassword.length < 6) {
+      setErrorMsg("La nueva contraseña debe tener al menos 6 caracteres.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (recNewPassword !== recConfirmPassword) {
+      setErrorMsg("Las contraseñas no coinciden. Verifíquelas e intente nuevamente.");
+      setIsLoading(false);
+      return;
+    }
+
+    setTimeout(() => {
+      const res = resetPassword({
+        identifier: cleanEmail,
+        studentCode: cleanCode,
+        newPassword: recNewPassword,
+      });
+
+      setIsLoading(false);
+
+      if (res.success) {
+        setSuccessMsg(res.message || "¡Contraseña actualizada con éxito! Redirigiendo al inicio de sesión...");
+        setIdentifier(cleanEmail);
+        setPassword(recNewPassword);
+        setTimeout(() => {
+          setAuthView("login");
+          setSuccessMsg("Contraseña actualizada exitosamente. Inicie sesión para continuar.");
+        }, 1500);
+      } else {
+        setErrorMsg(res.error || "No se pudo restablecer la contraseña.");
+      }
+    }, 550);
+  };
+
   const switchToRegister = () => {
-    setIsRegisterMode(true);
+    setAuthView("register");
     setErrorMsg(null);
     setSuccessMsg(null);
   };
 
   const switchToLogin = () => {
-    setIsRegisterMode(false);
+    setAuthView("login");
+    setErrorMsg(null);
+    setSuccessMsg(null);
+  };
+
+  const switchToForgot = () => {
+    setAuthView("forgot");
+    setRecEmail(identifier || "");
     setErrorMsg(null);
     setSuccessMsg(null);
   };
@@ -154,7 +234,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
       <div className="fixed inset-0 bg-gradient-to-b from-slate-950/40 via-slate-950/20 to-slate-950/60 pointer-events-none" />
 
       {/* Main Glassmorphism Card */}
-      <div className={`relative z-10 w-full mx-4 my-auto transition-all duration-300 ${isRegisterMode ? "max-w-[490px]" : "max-w-[420px]"
+      <div className={`relative z-10 w-full mx-4 my-auto transition-all duration-300 ${authView !== "login" ? "max-w-[490px]" : "max-w-[420px]"
         }`}>
         <div className="relative backdrop-blur-md border rounded-[24px] sm:rounded-[28px] p-5 sm:p-8 shadow-2xl space-y-5 bg-[#0a1526]/65 sm:bg-[#0c1829]/75 border-white/25 text-white shadow-black/80">
 
@@ -185,11 +265,20 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
             {/* Main Title */}
             <h1 className="text-lg sm:text-[21px] font-black tracking-tight uppercase leading-snug pt-1 font-sans text-white">
-              {isRegisterMode ? "CREAR NUEVA CUENTA DE ESTUDIANTE" : "ACCESO AL SISTEMA DE MOVILIDAD UNT"}
+              {authView === "register"
+                ? "CREAR NUEVA CUENTA DE ESTUDIANTE"
+                : authView === "forgot"
+                  ? "RECUPERACIÓN DE CONTRASEÑA"
+                  : "ACCESO AL SISTEMA DE MOVILIDAD UNT"}
             </h1>
-            {isRegisterMode && (
+            {authView === "register" && (
               <p className="text-xs font-normal text-slate-300">
                 Regístrate con tu código de matrícula y carné universitario UNT
+              </p>
+            )}
+            {authView === "forgot" && (
+              <p className="text-xs font-normal text-slate-300">
+                Ingresa tu correo institucional y tu código de matrícula UNT para generar tu nueva clave
               </p>
             )}
           </div>
@@ -210,7 +299,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
           )}
 
           {/* MODE 1: LOGIN FORM */}
-          {!isRegisterMode && (
+          {authView === "login" && (
             <>
               {/* Login Form */}
               <form onSubmit={handleLoginSubmit} className="space-y-4 pt-1">
@@ -281,8 +370,8 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
                 <div>
                   <button
                     type="button"
-                    onClick={() => alert("Para recuperar su contraseña institucional comuníquese con soporte@unitru.edu.pe o la Dirección de Bienestar Universitario UNT.")}
-                    className="transition-colors hover:text-white"
+                    onClick={switchToForgot}
+                    className="text-slate-300 hover:text-white hover:underline transition-colors cursor-pointer"
                   >
                     ¿Olvidó su contraseña?
                   </button>
@@ -301,7 +390,7 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
           )}
 
           {/* MODE 2: REGISTRATION FORM */}
-          {isRegisterMode && (
+          {authView === "register" && (
             <form onSubmit={handleRegisterSubmit} className="space-y-3.5 pt-1">
               {/* Names and Last Names */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -471,11 +560,134 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
                 <button
                   type="button"
                   onClick={switchToLogin}
-                  className="text-xs transition-colors inline-flex items-center gap-1.5 font-medium text-slate-300 hover:text-white"
+                  className="text-xs transition-colors inline-flex items-center gap-1.5 font-medium text-slate-300 hover:text-white cursor-pointer"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>¿Ya tienes una cuenta registrada? Iniciar Sesión</span>
                 </button>
+              </div>
+            </form>
+          )}
+
+          {/* MODE 3: FORGOT PASSWORD FORM */}
+          {authView === "forgot" && (
+            <form onSubmit={handleRecoverySubmit} className="space-y-3.5 pt-1">
+              {/* Correo Electrónico */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <label className="text-[11px] font-medium block text-slate-300">
+                    Correo Institucional Oficial *
+                  </label>
+                  <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-800/60 px-1.5 py-0.5 rounded">
+                    @unitru.edu.pe
+                  </span>
+                </div>
+                <div className="relative flex items-center rounded-xl px-3 py-2 border transition-all bg-[#1d2a3c]/85 border-slate-500/60 focus-within:border-white/70 text-white">
+                  <Mail className="w-3.5 h-3.5 mr-2 shrink-0 text-slate-400" />
+                  <input
+                    type="text"
+                    required
+                    value={recEmail}
+                    onChange={(e) => setRecEmail(e.target.value)}
+                    placeholder="ejemplo@unitru.edu.pe"
+                    className="w-full bg-transparent text-xs focus:outline-none text-white placeholder-slate-400"
+                  />
+                </div>
+                {!recEmail.includes("@") && recEmail.trim().length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setRecEmail((prev) => `${prev.trim()}@unitru.edu.pe`)}
+                    className="text-[10px] text-amber-300 hover:text-amber-200 bg-amber-950/50 border border-amber-700/60 px-2 py-0.5 rounded flex items-center gap-1 transition-colors mt-1"
+                  >
+                    <span>+ Completar con <strong>@unitru.edu.pe</strong></span>
+                  </button>
+                )}
+              </div>
+
+              {/* Código de Matrícula UNT (Verificación de Identidad) */}
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium block text-slate-300">
+                  Código de Matrícula UNT (Identidad) *
+                </label>
+                <div className="relative flex items-center rounded-xl px-3 py-2 border transition-all bg-[#1d2a3c]/85 border-slate-500/60 focus-within:border-white/70 text-white">
+                  <IdCard className="w-3.5 h-3.5 mr-2 shrink-0 text-slate-400" />
+                  <input
+                    type="text"
+                    required
+                    value={recCode}
+                    onChange={(e) => setRecCode(e.target.value)}
+                    placeholder="Ej. 1020304021"
+                    className="w-full bg-transparent text-xs focus:outline-none font-mono text-white placeholder-slate-400"
+                  />
+                </div>
+              </div>
+
+              {/* Nueva Contraseña */}
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium block text-slate-300">
+                  Nueva Contraseña de Acceso *
+                </label>
+                <div className="relative flex items-center rounded-xl px-3 py-2 border transition-all bg-[#1d2a3c]/85 border-slate-500/60 focus-within:border-white/70 text-white">
+                  <Lock className="w-3.5 h-3.5 mr-2 shrink-0 text-slate-400" />
+                  <input
+                    type="password"
+                    required
+                    value={recNewPassword}
+                    onChange={(e) => setRecNewPassword(e.target.value)}
+                    placeholder="Mínimo 6 caracteres"
+                    className="w-full bg-transparent text-xs focus:outline-none font-mono text-white placeholder-slate-400"
+                  />
+                </div>
+              </div>
+
+              {/* Confirmar Contraseña */}
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium block text-slate-300">
+                  Confirmar Nueva Contraseña *
+                </label>
+                <div className="relative flex items-center rounded-xl px-3 py-2 border transition-all bg-[#1d2a3c]/85 border-slate-500/60 focus-within:border-white/70 text-white">
+                  <Lock className="w-3.5 h-3.5 mr-2 shrink-0 text-slate-400" />
+                  <input
+                    type="password"
+                    required
+                    value={recConfirmPassword}
+                    onChange={(e) => setRecConfirmPassword(e.target.value)}
+                    placeholder="Repita su nueva contraseña"
+                    className="w-full bg-transparent text-xs focus:outline-none font-mono text-white placeholder-slate-400"
+                  />
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full py-3 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 active:scale-[0.98] text-white font-bold text-xs tracking-wider uppercase transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+                >
+                  {isLoading ? (
+                    <span className="inline-flex items-center gap-2">
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      ACTUALIZANDO CLAVE...
+                    </span>
+                  ) : (
+                    <span>RESTABLECER MI CONTRASEÑA</span>
+                  )}
+                </button>
+              </div>
+
+              {/* Links below */}
+              <div className="text-center pt-2 space-y-2">
+                <div>
+                  <button
+                    type="button"
+                    onClick={switchToLogin}
+                    className="text-xs transition-colors inline-flex items-center gap-1.5 font-medium text-slate-300 hover:text-white cursor-pointer"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Volver a Iniciar Sesión</span>
+                  </button>
+                </div>
               </div>
             </form>
           )}

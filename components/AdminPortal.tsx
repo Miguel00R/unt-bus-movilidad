@@ -829,8 +829,8 @@ export default function AdminPortal({
       {/* ================= TOP MOBILE BAR (SOLO EN TELÉFONOS) ================= */}
       <div
         className={`md:hidden sticky top-0 z-40 border-b px-4 py-2.5 flex items-center justify-between transition-colors duration-200 ${isLight
-            ? "bg-white/95 backdrop-blur-md border-slate-200 text-slate-800 shadow-xs"
-            : "bg-[#0d1527]/95 backdrop-blur-md border-slate-800 text-white"
+          ? "bg-white/95 backdrop-blur-md border-slate-200 text-slate-800 shadow-xs"
+          : "bg-[#0d1527]/95 backdrop-blur-md border-slate-800 text-white"
           }`}
       >
         <div className="flex items-center gap-2.5 min-w-0">
@@ -859,8 +859,8 @@ export default function AdminPortal({
           <button
             onClick={() => syncFromServer()}
             className={`p-2 rounded-lg border text-xs transition-colors flex items-center justify-center ${isLight
-                ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
-                : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
+              ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
+              : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
               }`}
             title="Sincronizar en tiempo real"
           >
@@ -871,8 +871,8 @@ export default function AdminPortal({
           <button
             onClick={toggleTheme}
             className={`p-2 rounded-lg border text-xs transition-colors flex items-center justify-center ${isLight
-                ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
-                : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
+              ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
+              : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
               }`}
             title="Cambiar tema"
           >
@@ -883,8 +883,8 @@ export default function AdminPortal({
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`p-2 rounded-lg border text-xs transition-colors flex items-center justify-center ${isLight
-                ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800"
-                : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-white"
+              ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800"
+              : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-white"
               }`}
             title="Menú"
           >
@@ -905,8 +905,8 @@ export default function AdminPortal({
           {/* Drawer content */}
           <div
             className={`relative w-4/5 max-w-xs h-full border-r p-5 flex flex-col justify-between z-10 transition-colors shadow-2xl ${isLight
-                ? "bg-white border-slate-200 text-slate-800"
-                : "bg-[#0d1527] border-slate-800 text-white"
+              ? "bg-white border-slate-200 text-slate-800"
+              : "bg-[#0d1527] border-slate-800 text-white"
               }`}
           >
             <div className="space-y-4">
@@ -931,12 +931,12 @@ export default function AdminPortal({
               {/* Discreet Active Trip Pill */}
               <div
                 className={`p-2.5 rounded-xl border text-xs flex items-center gap-2.5 ${activeViaje
-                    ? isLight
-                      ? "bg-slate-50 border-slate-300 text-slate-800"
-                      : "bg-slate-900/90 border-slate-700/80 text-slate-200"
-                    : isLight
-                      ? "bg-slate-50/60 border-slate-200 text-slate-400"
-                      : "bg-slate-900/40 border-slate-800/60 text-slate-500"
+                  ? isLight
+                    ? "bg-slate-50 border-slate-300 text-slate-800"
+                    : "bg-slate-900/90 border-slate-700/80 text-slate-200"
+                  : isLight
+                    ? "bg-slate-50/60 border-slate-200 text-slate-400"
+                    : "bg-slate-900/40 border-slate-800/60 text-slate-500"
                   }`}
               >
                 <span
@@ -961,8 +961,8 @@ export default function AdminPortal({
                     setIsMobileMenuOpen(false);
                   }}
                   className={`w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors ${activeTab === "viaje"
-                      ? isLight ? "bg-slate-900 text-white font-bold" : "bg-slate-800 text-white font-bold"
-                      : isLight ? "text-slate-700 hover:bg-slate-100" : "text-slate-300 hover:bg-slate-800"
+                    ? isLight ? "bg-slate-900 text-white font-bold" : "bg-slate-800 text-white font-bold"
+                    : isLight ? "text-slate-700 hover:bg-slate-100" : "text-slate-300 hover:bg-slate-800"
                     }`}
                 >
                   <div className="flex items-center gap-2.5">
@@ -978,8 +978,8 @@ export default function AdminPortal({
                       setIsMobileMenuOpen(false);
                     }}
                     className={`w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors ${activeTab === "pasajeros"
-                        ? isLight ? "bg-slate-900 text-white font-bold" : "bg-slate-800 text-white font-bold"
-                        : isLight ? "text-slate-700 hover:bg-slate-100" : "text-slate-300 hover:bg-slate-800"
+                      ? isLight ? "bg-slate-900 text-white font-bold" : "bg-slate-800 text-white font-bold"
+                      : isLight ? "text-slate-700 hover:bg-slate-100" : "text-slate-300 hover:bg-slate-800"
                       }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -999,8 +999,8 @@ export default function AdminPortal({
                       setIsMobileMenuOpen(false);
                     }}
                     className={`w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors ${activeTab === "estudiantes"
-                        ? isLight ? "bg-slate-900 text-white font-bold" : "bg-slate-800 text-white font-bold"
-                        : isLight ? "text-slate-700 hover:bg-slate-100" : "text-slate-300 hover:bg-slate-800"
+                      ? isLight ? "bg-slate-900 text-white font-bold" : "bg-slate-800 text-white font-bold"
+                      : isLight ? "text-slate-700 hover:bg-slate-100" : "text-slate-300 hover:bg-slate-800"
                       }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -1020,8 +1020,8 @@ export default function AdminPortal({
                       setIsMobileMenuOpen(false);
                     }}
                     className={`w-full px-3 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition-colors ${activeTab === "historial"
-                        ? isLight ? "bg-slate-900 text-white font-bold" : "bg-slate-800 text-white font-bold"
-                        : isLight ? "text-slate-700 hover:bg-slate-100" : "text-slate-300 hover:bg-slate-800"
+                      ? isLight ? "bg-slate-900 text-white font-bold" : "bg-slate-800 text-white font-bold"
+                      : isLight ? "text-slate-700 hover:bg-slate-100" : "text-slate-300 hover:bg-slate-800"
                       }`}
                   >
                     <History className="w-4 h-4 text-slate-400" />
@@ -1040,8 +1040,8 @@ export default function AdminPortal({
                     setIsMobileMenuOpen(false);
                   }}
                   className={`w-full px-3 py-2 rounded-xl border text-xs font-semibold flex items-center justify-between ${isLight
-                      ? "bg-slate-50 border-slate-200 text-slate-700"
-                      : "bg-slate-900 border-slate-700/60 text-slate-300"
+                    ? "bg-slate-50 border-slate-200 text-slate-700"
+                    : "bg-slate-900 border-slate-700/60 text-slate-300"
                     }`}
                 >
                   <div className="flex items-center gap-2 truncate">
@@ -1060,8 +1060,8 @@ export default function AdminPortal({
               ) : (
                 <div
                   className={`w-full px-3 py-2 rounded-xl border text-xs font-semibold flex items-center justify-between ${isLight
-                      ? "bg-slate-50 border-slate-200 text-slate-700"
-                      : "bg-slate-900 border-slate-700/60 text-slate-300"
+                    ? "bg-slate-50 border-slate-200 text-slate-700"
+                    : "bg-slate-900 border-slate-700/60 text-slate-300"
                     }`}
                 >
                   <div className="flex items-center gap-2 truncate">
@@ -1095,8 +1095,8 @@ export default function AdminPortal({
       {/* ================= LEFT SIDEBAR (DESKTOP) ================= */}
       <aside
         className={`hidden md:flex md:w-64 border-r p-4 sm:p-5 flex-col justify-between flex-shrink-0 z-30 transition-colors duration-200 ${isLight
-            ? "bg-white border-slate-200 shadow-sm"
-            : "bg-[#0d1527] border-slate-800/80"
+          ? "bg-white border-slate-200 shadow-sm"
+          : "bg-[#0d1527] border-slate-800/80"
           }`}
       >
         <div className="space-y-5">
@@ -1134,22 +1134,22 @@ export default function AdminPortal({
           {/* Discreet Active Trip Pill */}
           <div
             className={`p-2.5 rounded-xl border text-xs flex items-center gap-2.5 transition-colors ${activeViaje
-                ? isLight
-                  ? "bg-slate-50 border-slate-300 text-slate-800"
-                  : "bg-slate-900/90 border-slate-700/80 text-slate-200"
-                : isLight
-                  ? "bg-slate-50/60 border-slate-200 text-slate-400"
-                  : "bg-slate-900/40 border-slate-800/60 text-slate-500"
+              ? isLight
+                ? "bg-slate-50 border-slate-300 text-slate-800"
+                : "bg-slate-900/90 border-slate-700/80 text-slate-200"
+              : isLight
+                ? "bg-slate-50/60 border-slate-200 text-slate-400"
+                : "bg-slate-900/40 border-slate-800/60 text-slate-500"
               }`}
           >
             <span
               className={`w-2 h-2 rounded-full flex-shrink-0 ${activeViaje
-                  ? isLight
-                    ? "bg-emerald-600"
-                    : "bg-emerald-400 animate-pulse"
-                  : isLight
-                    ? "bg-slate-300"
-                    : "bg-slate-600"
+                ? isLight
+                  ? "bg-emerald-600"
+                  : "bg-emerald-400 animate-pulse"
+                : isLight
+                  ? "bg-slate-300"
+                  : "bg-slate-600"
                 }`}
             />
             <div className="min-w-0 flex-1">
@@ -1173,12 +1173,12 @@ export default function AdminPortal({
             <button
               onClick={() => setActiveTab("viaje")}
               className={`w-full px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors ${activeTab === "viaje"
-                  ? isLight
-                    ? "bg-slate-900 text-white font-bold shadow-sm"
-                    : "bg-slate-800 text-white font-bold border border-slate-700/70"
-                  : isLight
-                    ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
+                ? isLight
+                  ? "bg-slate-900 text-white font-bold shadow-sm"
+                  : "bg-slate-800 text-white font-bold border border-slate-700/70"
+                : isLight
+                  ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
                 }`}
             >
               <div className="flex items-center gap-2.5">
@@ -1197,12 +1197,12 @@ export default function AdminPortal({
               <button
                 onClick={() => setActiveTab("pasajeros")}
                 className={`w-full px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors ${activeTab === "pasajeros"
-                    ? isLight
-                      ? "bg-slate-900 text-white font-bold shadow-sm"
-                      : "bg-slate-800 text-white font-bold border border-slate-700/70"
-                    : isLight
-                      ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
+                  ? isLight
+                    ? "bg-slate-900 text-white font-bold shadow-sm"
+                    : "bg-slate-800 text-white font-bold border border-slate-700/70"
+                  : isLight
+                    ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
                   }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1211,12 +1211,12 @@ export default function AdminPortal({
                 </div>
                 <span
                   className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${activeTab === "pasajeros"
-                      ? isLight
-                        ? "bg-slate-800 text-white"
-                        : "bg-slate-900 text-slate-200"
-                      : isLight
-                        ? "bg-slate-100 text-slate-700 border border-slate-200"
-                        : "bg-slate-900 border border-slate-700 text-slate-300"
+                    ? isLight
+                      ? "bg-slate-800 text-white"
+                      : "bg-slate-900 text-slate-200"
+                    : isLight
+                      ? "bg-slate-100 text-slate-700 border border-slate-200"
+                      : "bg-slate-900 border border-slate-700 text-slate-300"
                     }`}
                 >
                   {activePasajeros.length}
@@ -1228,12 +1228,12 @@ export default function AdminPortal({
               <button
                 onClick={() => setActiveTab("estudiantes")}
                 className={`w-full px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition-colors ${activeTab === "estudiantes"
-                    ? isLight
-                      ? "bg-slate-900 text-white font-bold shadow-sm"
-                      : "bg-slate-800 text-white font-bold border border-slate-700/70"
-                    : isLight
-                      ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
+                  ? isLight
+                    ? "bg-slate-900 text-white font-bold shadow-sm"
+                    : "bg-slate-800 text-white font-bold border border-slate-700/70"
+                  : isLight
+                    ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
                   }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -1242,12 +1242,12 @@ export default function AdminPortal({
                 </div>
                 <span
                   className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${activeTab === "estudiantes"
-                      ? isLight
-                        ? "bg-slate-800 text-white"
-                        : "bg-slate-900 text-slate-200"
-                      : isLight
-                        ? "bg-slate-100 text-slate-700 border border-slate-200"
-                        : "bg-slate-900 border border-slate-700 text-slate-300"
+                    ? isLight
+                      ? "bg-slate-800 text-white"
+                      : "bg-slate-900 text-slate-200"
+                    : isLight
+                      ? "bg-slate-100 text-slate-700 border border-slate-200"
+                      : "bg-slate-900 border border-slate-700 text-slate-300"
                     }`}
                 >
                   {estudiantes.length}
@@ -1259,12 +1259,12 @@ export default function AdminPortal({
               <button
                 onClick={() => setActiveTab("historial")}
                 className={`w-full px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition-colors ${activeTab === "historial"
-                    ? isLight
-                      ? "bg-slate-900 text-white font-bold shadow-sm"
-                      : "bg-slate-800 text-white font-bold border border-slate-700/70"
-                    : isLight
-                      ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
+                  ? isLight
+                    ? "bg-slate-900 text-white font-bold shadow-sm"
+                    : "bg-slate-800 text-white font-bold border border-slate-700/70"
+                  : isLight
+                    ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
                   }`}
               >
                 <History className={`w-4 h-4 ${isLight ? "text-slate-500" : "text-slate-400"}`} />
@@ -1283,8 +1283,8 @@ export default function AdminPortal({
           <button
             onClick={toggleTheme}
             className={`w-full px-3 py-2 rounded-xl border text-xs font-semibold flex items-center justify-between transition-colors ${isLight
-                ? "bg-slate-100 hover:bg-slate-200/80 border-slate-300 text-slate-700"
-                : "bg-slate-900/80 hover:bg-slate-800 border-slate-700/60 text-slate-300"
+              ? "bg-slate-100 hover:bg-slate-200/80 border-slate-300 text-slate-700"
+              : "bg-slate-900/80 hover:bg-slate-800 border-slate-700/60 text-slate-300"
               }`}
             title="Alternar entre modo claro y modo oscuro"
           >
@@ -1320,8 +1320,8 @@ export default function AdminPortal({
             <button
               onClick={() => setIsRoleModalOpen(true)}
               className={`w-full px-3 py-2 rounded-xl border text-xs font-semibold flex items-center justify-between transition-colors ${isLight
-                  ? "bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700"
-                  : "bg-slate-900/80 hover:bg-slate-800 border-slate-700/60 text-slate-300"
+                ? "bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700"
+                : "bg-slate-900/80 hover:bg-slate-800 border-slate-700/60 text-slate-300"
                 }`}
             >
               <div className="flex items-center gap-2 text-left truncate">
@@ -1344,8 +1344,8 @@ export default function AdminPortal({
           ) : (
             <div
               className={`w-full px-3 py-2 rounded-xl border text-xs font-semibold flex items-center justify-between ${isLight
-                  ? "bg-slate-50 border-slate-200 text-slate-700"
-                  : "bg-slate-900/80 border-slate-700/60 text-slate-300"
+                ? "bg-slate-50 border-slate-200 text-slate-700"
+                : "bg-slate-900/80 border-slate-700/60 text-slate-300"
                 }`}
             >
               <div className="flex items-center gap-2 text-left truncate">
@@ -1367,8 +1367,8 @@ export default function AdminPortal({
             <button
               onClick={onLogout}
               className={`w-full px-3 py-2 rounded-xl text-xs font-semibold border transition-colors flex items-center justify-center gap-2 ${isLight
-                  ? "bg-red-50/80 hover:bg-red-100 text-red-700 border-red-200"
-                  : "bg-slate-900/40 hover:bg-slate-800/80 text-slate-400 hover:text-rose-300 border-slate-800 hover:border-slate-700"
+                ? "bg-red-50/80 hover:bg-red-100 text-red-700 border-red-200"
+                : "bg-slate-900/40 hover:bg-slate-800/80 text-slate-400 hover:text-rose-300 border-slate-800 hover:border-slate-700"
                 }`}
             >
               <LogOut className="w-3.5 h-3.5" />
@@ -1383,8 +1383,8 @@ export default function AdminPortal({
         {/* Sober Top Bar */}
         <header
           className={`border-b px-5 sm:px-8 py-3.5 flex items-center justify-between gap-4 flex-wrap transition-colors duration-200 ${isLight
-              ? "bg-white/95 border-slate-200 text-slate-800 shadow-xs"
-              : "bg-[#0e1628] border-slate-800/80"
+            ? "bg-white/95 border-slate-200 text-slate-800 shadow-xs"
+            : "bg-[#0e1628] border-slate-800/80"
             }`}
         >
           <div>
@@ -1402,8 +1402,8 @@ export default function AdminPortal({
             <button
               onClick={() => syncFromServer()}
               className={`p-2 rounded-lg border text-xs transition-colors flex items-center justify-center ${isLight
-                  ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
-                  : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
+                ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
+                : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
                 }`}
               title="Sincronizar en tiempo real con el servidor"
             >
@@ -1414,8 +1414,8 @@ export default function AdminPortal({
             <button
               onClick={toggleTheme}
               className={`p-2 rounded-lg border text-xs transition-colors flex items-center justify-center ${isLight
-                  ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
-                  : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
+                ? "bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700"
+                : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
                 }`}
               title={isLight ? "Cambiar a modo oscuro" : "Cambiar a modo claro"}
             >
@@ -1431,8 +1431,8 @@ export default function AdminPortal({
                 <button
                   onClick={handleExportPDF}
                   className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-xs ${isLight
-                      ? "bg-white hover:bg-slate-50 border-slate-300 text-slate-700 hover:text-slate-900"
-                      : "bg-slate-900 hover:bg-slate-800 border-slate-700/70 text-slate-300 hover:text-white"
+                    ? "bg-white hover:bg-slate-50 border-slate-300 text-slate-700 hover:text-slate-900"
+                    : "bg-slate-900 hover:bg-slate-800 border-slate-700/70 text-slate-300 hover:text-white"
                     }`}
                   title="Exportar reporte oficial en PDF"
                 >
@@ -1442,8 +1442,8 @@ export default function AdminPortal({
                 <button
                   onClick={handleExportExcel}
                   className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-xs ${isLight
-                      ? "bg-white hover:bg-slate-50 border-slate-300 text-slate-700 hover:text-slate-900"
-                      : "bg-slate-900 hover:bg-slate-800 border-slate-700/70 text-slate-300 hover:text-white"
+                    ? "bg-white hover:bg-slate-50 border-slate-300 text-slate-700 hover:text-slate-900"
+                    : "bg-slate-900 hover:bg-slate-800 border-slate-700/70 text-slate-300 hover:text-white"
                     }`}
                   title="Exportar datos a Excel"
                 >
@@ -1465,8 +1465,8 @@ export default function AdminPortal({
               {/* Active Trip Status Card */}
               <div
                 className={`rounded-xl border p-5 space-y-4 transition-colors duration-200 ${isLight
-                    ? "bg-white border-slate-200 shadow-xs"
-                    : "bg-[#111c30] border-slate-800"
+                  ? "bg-white border-slate-200 shadow-xs"
+                  : "bg-[#111c30] border-slate-800"
                   }`}
               >
                 <div
@@ -1476,8 +1476,8 @@ export default function AdminPortal({
                   <div className="flex items-center gap-3">
                     <div
                       className={`w-9 h-9 rounded-lg border flex items-center justify-center ${isLight
-                          ? "bg-slate-100 border-slate-300 text-slate-700"
-                          : "bg-slate-900 border-slate-700/60 text-slate-300"
+                        ? "bg-slate-100 border-slate-300 text-slate-700"
+                        : "bg-slate-900 border-slate-700/60 text-slate-300"
                         }`}
                     >
                       <Compass className="w-5 h-5 text-slate-500" />
@@ -1486,12 +1486,12 @@ export default function AdminPortal({
                       <div className="flex items-center gap-2">
                         <span
                           className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${activeViaje
-                              ? isLight
-                                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                                : "bg-emerald-950/50 text-emerald-300 border border-emerald-800/50"
-                              : isLight
-                                ? "bg-slate-100 text-slate-600 border border-slate-200"
-                                : "bg-slate-900 text-slate-400 border border-slate-800"
+                            ? isLight
+                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                              : "bg-emerald-950/50 text-emerald-300 border border-emerald-800/50"
+                            : isLight
+                              ? "bg-slate-100 text-slate-600 border border-slate-200"
+                              : "bg-slate-900 text-slate-400 border border-slate-800"
                             }`}
                         >
                           {activeViaje ? "En Curso" : "Inactivo"}
@@ -1517,8 +1517,8 @@ export default function AdminPortal({
                       <button
                         onClick={handleUpdateDepartureTime}
                         className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors flex items-center gap-1.5 ${isLight
-                            ? "bg-white hover:bg-slate-100 border-slate-300 text-slate-700"
-                            : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
+                          ? "bg-white hover:bg-slate-100 border-slate-300 text-slate-700"
+                          : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
                           }`}
                       >
                         <Clock className="w-3.5 h-3.5 text-slate-500" /> Marcar Salida
@@ -1526,8 +1526,8 @@ export default function AdminPortal({
                       <button
                         onClick={handleCloseActiveTrip}
                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 ${isLight
-                            ? "bg-slate-900 hover:bg-slate-800 text-white"
-                            : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
+                          ? "bg-slate-900 hover:bg-slate-800 text-white"
+                          : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
                           }`}
                       >
                         <Check className="w-3.5 h-3.5" /> Finalizar Viaje
@@ -1627,8 +1627,8 @@ export default function AdminPortal({
                     {currentRole === "estudiante" && myBoardingRecord ? (
                       <div
                         className={`mt-4 p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${isLight
-                            ? "bg-emerald-50/90 border-emerald-200 text-slate-800"
-                            : "bg-emerald-950/40 border-emerald-800/60 text-slate-200"
+                          ? "bg-emerald-50/90 border-emerald-200 text-slate-800"
+                          : "bg-emerald-950/40 border-emerald-800/60 text-slate-200"
                           }`}
                       >
                         <div className="flex items-center gap-3">
@@ -1658,8 +1658,8 @@ export default function AdminPortal({
                               })
                             }
                             className={`px-3.5 py-2 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-xs ${isLight
-                                ? "bg-white hover:bg-slate-100 border-slate-300 text-slate-700"
-                                : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
+                              ? "bg-white hover:bg-slate-100 border-slate-300 text-slate-700"
+                              : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
                               }`}
                           >
                             <Eye className="w-3.5 h-3.5 text-slate-500" />
@@ -1670,8 +1670,8 @@ export default function AdminPortal({
                     ) : (
                       <div
                         className={`mt-4 p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${isLight
-                            ? "bg-blue-50/80 border-blue-200 text-slate-800"
-                            : "bg-blue-950/30 border-blue-800/60 text-slate-200"
+                          ? "bg-blue-50/80 border-blue-200 text-slate-800"
+                          : "bg-blue-950/30 border-blue-800/60 text-slate-200"
                           }`}
                       >
                         <div className="flex items-center gap-3">
@@ -1717,8 +1717,8 @@ export default function AdminPortal({
               {currentRole !== "estudiante" && (
                 <div
                   className={`rounded-xl border p-5 space-y-4 transition-colors duration-200 ${isLight
-                      ? "bg-white border-slate-200 shadow-xs"
-                      : "bg-[#111c30] border-slate-800"
+                    ? "bg-white border-slate-200 shadow-xs"
+                    : "bg-[#111c30] border-slate-800"
                     }`}
                 >
                   <div
@@ -1739,8 +1739,8 @@ export default function AdminPortal({
                       <input
                         type="text"
                         className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-600"
-                            : "bg-slate-900 border-slate-700/80 text-white placeholder-slate-500 focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-600"
+                          : "bg-slate-900 border-slate-700/80 text-white placeholder-slate-500 focus:border-slate-500"
                           }`}
                         placeholder="Ej: Miguel Quesquén Rodas"
                         value={viajeChofer}
@@ -1756,8 +1756,8 @@ export default function AdminPortal({
                       <input
                         type="text"
                         className={`w-full px-3 py-2 rounded-lg border text-xs font-mono uppercase focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-600"
-                            : "bg-slate-900 border-slate-700/80 text-white placeholder-slate-500 focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-600"
+                          : "bg-slate-900 border-slate-700/80 text-white placeholder-slate-500 focus:border-slate-500"
                           }`}
                         placeholder="Ej: T2B-964"
                         value={viajePlaca}
@@ -1772,8 +1772,8 @@ export default function AdminPortal({
                       <input
                         type="text"
                         className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
-                            : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
+                          : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
                           }`}
                         value={viajeOrigen}
                         onChange={(e) => setViajeOrigen(e.target.value)}
@@ -1788,8 +1788,8 @@ export default function AdminPortal({
                       <input
                         type="text"
                         className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
-                            : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
+                          : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
                           }`}
                         value={viajeDestino}
                         onChange={(e) => setViajeDestino(e.target.value)}
@@ -1803,8 +1803,8 @@ export default function AdminPortal({
                       </label>
                       <select
                         className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
-                            : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
+                          : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
                           }`}
                         value={viajeRuta}
                         onChange={(e) => setViajeRuta(e.target.value)}
@@ -1822,8 +1822,8 @@ export default function AdminPortal({
                       </label>
                       <select
                         className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
-                            : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
+                          : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
                           }`}
                         value={viajeTurno}
                         onChange={(e) => setViajeTurno(e.target.value)}
@@ -1843,8 +1843,8 @@ export default function AdminPortal({
                         min="1"
                         max="100"
                         className={`w-full px-3 py-2 rounded-lg border text-xs font-mono focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
-                            : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
+                          : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
                           }`}
                         value={viajeAsientos}
                         onChange={(e) => setViajeAsientos(parseInt(e.target.value) || 48)}
@@ -1858,8 +1858,8 @@ export default function AdminPortal({
                       <input
                         type="date"
                         className={`w-full px-3 py-2 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
-                            : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-600"
+                          : "bg-slate-900 border-slate-700/80 text-white focus:border-slate-500"
                           }`}
                         value={viajeFecha}
                         onChange={(e) => setViajeFecha(e.target.value)}
@@ -1871,8 +1871,8 @@ export default function AdminPortal({
                       <button
                         type="submit"
                         className={`w-full py-2.5 rounded-lg font-semibold text-xs transition-colors flex items-center justify-center gap-2 shadow-xs ${isLight
-                            ? "bg-slate-900 hover:bg-slate-800 text-white"
-                            : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
+                          ? "bg-slate-900 hover:bg-slate-800 text-white"
+                          : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
                           }`}
                       >
                         <Play className="w-3.5 h-3.5 fill-white" /> Iniciar Recorrido
@@ -1913,8 +1913,8 @@ export default function AdminPortal({
                     type="text"
                     placeholder="Filtrar por código o nombre..."
                     className={`w-full pl-8 pr-3 py-1.5 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                        ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-500"
-                        : "bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-slate-500"
+                      ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-500"
+                      : "bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-slate-500"
                       }`}
                     value={searchPasajeros}
                     onChange={(e) => setSearchPasajeros(e.target.value)}
@@ -1941,15 +1941,15 @@ export default function AdminPortal({
                         }
                       }}
                       className={`flex-1 px-3 py-1.5 rounded-lg border font-mono text-xs focus:outline-none transition-colors ${isLight
-                          ? "bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-500"
-                          : "bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:border-slate-500"
+                        ? "bg-white border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-500"
+                        : "bg-slate-950 border-slate-700 text-white placeholder-slate-500 focus:border-slate-500"
                         }`}
                     />
                     <button
                       onClick={handleValidateBoarding}
                       className={`px-3.5 py-1.5 rounded-lg font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs ${isLight
-                          ? "bg-slate-900 hover:bg-slate-800 text-white"
-                          : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
+                        ? "bg-slate-900 hover:bg-slate-800 text-white"
+                        : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
                         }`}
                     >
                       <Check className="w-3.5 h-3.5" /> Registrar Abordaje
@@ -1966,16 +1966,16 @@ export default function AdminPortal({
                   {scanResult.type !== "neutral" && (
                     <div
                       className={`p-2.5 rounded-md border text-xs flex items-center justify-between gap-2 animate-in fade-in duration-200 ${scanResult.type === "success"
+                        ? isLight
+                          ? "bg-emerald-50 border-emerald-300 text-emerald-900"
+                          : "bg-slate-900/90 border-emerald-800/60 text-slate-200"
+                        : scanResult.type === "duplicate"
                           ? isLight
-                            ? "bg-emerald-50 border-emerald-300 text-emerald-900"
-                            : "bg-slate-900/90 border-emerald-800/60 text-slate-200"
-                          : scanResult.type === "duplicate"
-                            ? isLight
-                              ? "bg-amber-50 border-amber-300 text-amber-900"
-                              : "bg-slate-900/90 border-amber-800/60 text-slate-200"
-                            : isLight
-                              ? "bg-rose-50 border-rose-300 text-rose-900"
-                              : "bg-slate-900/90 border-rose-800/60 text-slate-200"
+                            ? "bg-amber-50 border-amber-300 text-amber-900"
+                            : "bg-slate-900/90 border-amber-800/60 text-slate-200"
+                          : isLight
+                            ? "bg-rose-50 border-rose-300 text-rose-900"
+                            : "bg-slate-900/90 border-rose-800/60 text-slate-200"
                         }`}
                     >
                       <div className="flex items-center gap-2 min-w-0">
@@ -2045,8 +2045,8 @@ export default function AdminPortal({
                   <thead>
                     <tr
                       className={`text-[10px] uppercase font-bold border-b ${isLight
-                          ? "bg-slate-100 text-slate-600 border-slate-200"
-                          : "bg-slate-900/90 text-slate-400 border-slate-800"
+                        ? "bg-slate-100 text-slate-600 border-slate-200"
+                        : "bg-slate-900/90 text-slate-400 border-slate-800"
                         }`}
                     >
                       <th className="py-2.5 px-3">#</th>
@@ -2089,8 +2089,8 @@ export default function AdminPortal({
                           <td className="py-2.5 px-3">
                             <span
                               className={`px-2 py-0.5 rounded text-[10px] font-bold ${isLight
-                                  ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                                  : "bg-slate-900 text-emerald-300 border border-slate-700"
+                                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                                : "bg-slate-900 text-emerald-300 border border-slate-700"
                                 }`}
                             >
                               {p.estado}
@@ -2108,8 +2108,8 @@ export default function AdminPortal({
                                   })
                                 }
                                 className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold transition-colors shadow-2xs ${isLight
-                                    ? "bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200"
-                                    : "bg-blue-950/70 hover:bg-blue-900 border border-blue-800 text-blue-300"
+                                  ? "bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200"
+                                  : "bg-blue-950/70 hover:bg-blue-900 border border-blue-800 text-blue-300"
                                   }`}
                                 title="Ver firma digital capturada"
                               >
@@ -2124,8 +2124,8 @@ export default function AdminPortal({
                             <button
                               onClick={() => handleRemovePassenger(p.id)}
                               className={`p-1 rounded border transition-colors ${isLight
-                                  ? "bg-slate-50 hover:bg-red-50 border-slate-200 text-slate-400 hover:text-red-600"
-                                  : "bg-slate-900 hover:bg-slate-800 border-slate-800 text-slate-400 hover:text-rose-400"
+                                ? "bg-slate-50 hover:bg-red-50 border-slate-200 text-slate-400 hover:text-red-600"
+                                : "bg-slate-900 hover:bg-slate-800 border-slate-800 text-slate-400 hover:text-rose-400"
                                 }`}
                               title="Anular abordaje"
                             >
@@ -2167,8 +2167,8 @@ export default function AdminPortal({
                       value={selectedCareerFilter}
                       onChange={(e) => setSelectedCareerFilter(e.target.value)}
                       className={`px-2.5 py-1.5 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
-                          : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
+                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
+                        : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
                         }`}
                     >
                       <option value="TODAS">Todas las carreras</option>
@@ -2185,8 +2185,8 @@ export default function AdminPortal({
                         type="text"
                         placeholder="Buscar estudiante..."
                         className={`w-full pl-8 pr-3 py-1.5 rounded-lg border text-xs focus:outline-none transition-colors ${isLight
-                            ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-500"
-                            : "bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-slate-500"
+                          ? "bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400 focus:border-slate-500"
+                          : "bg-slate-900 border-slate-700 text-white placeholder-slate-500 focus:border-slate-500"
                           }`}
                         value={searchEstudiantes}
                         onChange={(e) => setSearchEstudiantes(e.target.value)}
@@ -2203,8 +2203,8 @@ export default function AdminPortal({
                     <thead>
                       <tr
                         className={`text-[10px] uppercase font-bold border-b ${isLight
-                            ? "bg-slate-100 text-slate-600 border-slate-200"
-                            : "bg-slate-900/90 text-slate-400 border-slate-800"
+                          ? "bg-slate-100 text-slate-600 border-slate-200"
+                          : "bg-slate-900/90 text-slate-400 border-slate-800"
                           }`}
                       >
                         <th className="py-2.5 px-3">Código</th>
@@ -2239,8 +2239,8 @@ export default function AdminPortal({
                                 <button
                                   onClick={() => handleEditStudent(s)}
                                   className={`p-1 rounded transition-colors ${isLight
-                                      ? "bg-slate-100 hover:bg-slate-200 text-slate-700"
-                                      : "bg-slate-900 hover:bg-slate-800 text-slate-300"
+                                    ? "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                                    : "bg-slate-900 hover:bg-slate-800 text-slate-300"
                                     }`}
                                   title="Editar"
                                 >
@@ -2249,8 +2249,8 @@ export default function AdminPortal({
                                 <button
                                   onClick={() => handleDeleteStudent(s.id)}
                                   className={`p-1 rounded transition-colors ${isLight
-                                      ? "bg-slate-100 hover:bg-red-50 text-slate-500 hover:text-red-600"
-                                      : "bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-rose-400"
+                                    ? "bg-slate-100 hover:bg-red-50 text-slate-500 hover:text-red-600"
+                                    : "bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-rose-400"
                                     }`}
                                   title="Eliminar"
                                 >
@@ -2289,8 +2289,8 @@ export default function AdminPortal({
                       required
                       placeholder="Ej: 1052100122"
                       className={`w-full px-2.5 py-1.5 rounded border font-mono focus:outline-none transition-colors ${isLight
-                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
-                          : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
+                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
+                        : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
                         }`}
                       value={estCodigo}
                       onChange={(e) => setEstCodigo(e.target.value)}
@@ -2301,8 +2301,8 @@ export default function AdminPortal({
                     <label className={`font-medium ${isLight ? "text-slate-700" : "text-slate-300"}`}>Carrera / Escuela *</label>
                     <select
                       className={`w-full px-2.5 py-1.5 rounded border focus:outline-none transition-colors ${isLight
-                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
-                          : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
+                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
+                        : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
                         }`}
                       value={estCarrera}
                       onChange={(e) => setEstCarrera(e.target.value)}
@@ -2322,8 +2322,8 @@ export default function AdminPortal({
                       required
                       placeholder="Ej: Jhon Robinson"
                       className={`w-full px-2.5 py-1.5 rounded border focus:outline-none transition-colors ${isLight
-                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
-                          : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
+                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
+                        : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
                         }`}
                       value={estNombres}
                       onChange={(e) => setEstNombres(e.target.value)}
@@ -2337,8 +2337,8 @@ export default function AdminPortal({
                       required
                       placeholder="Ej: Llique Chávarry"
                       className={`w-full px-2.5 py-1.5 rounded border focus:outline-none transition-colors ${isLight
-                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
-                          : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
+                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
+                        : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
                         }`}
                       value={estApellidos}
                       onChange={(e) => setEstApellidos(e.target.value)}
@@ -2351,8 +2351,8 @@ export default function AdminPortal({
                       type="text"
                       placeholder="Ej: Pacasmayo"
                       className={`w-full px-2.5 py-1.5 rounded border focus:outline-none transition-colors ${isLight
-                          ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
-                          : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
+                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-slate-500"
+                        : "bg-slate-900 border-slate-700 text-white focus:border-slate-500"
                         }`}
                       value={estLugar}
                       onChange={(e) => setEstLugar(e.target.value)}
@@ -2363,8 +2363,8 @@ export default function AdminPortal({
                     <button
                       type="submit"
                       className={`flex-1 py-2 rounded font-semibold transition-colors flex items-center justify-center gap-1.5 ${isLight
-                          ? "bg-slate-900 hover:bg-slate-800 text-white"
-                          : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
+                        ? "bg-slate-900 hover:bg-slate-800 text-white"
+                        : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
                         }`}
                     >
                       <Check className="w-3.5 h-3.5" /> {editingStudentId ? "Actualizar" : "Guardar Estudiante"}
@@ -2374,8 +2374,8 @@ export default function AdminPortal({
                         type="button"
                         onClick={handleCancelStudentEdit}
                         className={`px-2.5 py-2 rounded border transition-colors ${isLight
-                            ? "bg-slate-100 hover:bg-slate-200 text-slate-600 border-slate-300"
-                            : "bg-slate-900 text-slate-400 hover:text-white border-slate-800"
+                          ? "bg-slate-100 hover:bg-slate-200 text-slate-600 border-slate-300"
+                          : "bg-slate-900 text-slate-400 hover:text-white border-slate-800"
                           }`}
                       >
                         Cancelar
@@ -2411,8 +2411,8 @@ export default function AdminPortal({
                   <input
                     type="date"
                     className={`px-2.5 py-1 rounded border text-xs focus:outline-none transition-colors ${isLight
-                        ? "bg-slate-50 border-slate-300 text-slate-900"
-                        : "bg-slate-900 border-slate-700 text-white"
+                      ? "bg-slate-50 border-slate-300 text-slate-900"
+                      : "bg-slate-900 border-slate-700 text-white"
                       }`}
                     value={filterHistorialDate}
                     onChange={(e) => setFilterHistorialDate(e.target.value)}
@@ -2428,8 +2428,8 @@ export default function AdminPortal({
                   <thead>
                     <tr
                       className={`text-[10px] uppercase font-bold border-b ${isLight
-                          ? "bg-slate-100 text-slate-600 border-slate-200"
-                          : "bg-slate-900/90 text-slate-400 border-slate-800"
+                        ? "bg-slate-100 text-slate-600 border-slate-200"
+                        : "bg-slate-900/90 text-slate-400 border-slate-800"
                         }`}
                     >
                       <th className="py-2.5 px-3">ID</th>
@@ -2472,8 +2472,8 @@ export default function AdminPortal({
                             <td className="py-2.5 px-3">
                               <span
                                 className={`px-1.5 py-0.5 rounded text-[10px] font-mono border ${isLight
-                                    ? "bg-slate-100 text-slate-700 border-slate-200"
-                                    : "bg-slate-900 text-slate-300 border-slate-800"
+                                  ? "bg-slate-100 text-slate-700 border-slate-200"
+                                  : "bg-slate-900 text-slate-300 border-slate-800"
                                   }`}
                               >
                                 {count} / {v.totalAsientos}
@@ -2482,12 +2482,12 @@ export default function AdminPortal({
                             <td className="py-2.5 px-3">
                               <span
                                 className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${v.cerrado
-                                    ? isLight
-                                      ? "bg-slate-100 text-slate-600 border-slate-200"
-                                      : "bg-slate-900 text-slate-400 border border-slate-800"
-                                    : isLight
-                                      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                                      : "bg-slate-900 text-emerald-300 border border-slate-700"
+                                  ? isLight
+                                    ? "bg-slate-100 text-slate-600 border-slate-200"
+                                    : "bg-slate-900 text-slate-400 border border-slate-800"
+                                  : isLight
+                                    ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                    : "bg-slate-900 text-emerald-300 border border-slate-700"
                                   }`}
                               >
                                 {v.cerrado ? "Cerrado" : "En Curso"}
@@ -2498,8 +2498,8 @@ export default function AdminPortal({
                                 <button
                                   onClick={() => setSelectedViajeDetail(v)}
                                   className={`px-2 py-1 rounded font-semibold text-[11px] transition-colors flex items-center gap-1 border ${isLight
-                                      ? "bg-white hover:bg-slate-100 text-slate-700 border-slate-300"
-                                      : "bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-800"
+                                    ? "bg-white hover:bg-slate-100 text-slate-700 border-slate-300"
+                                    : "bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-800"
                                     }`}
                                 >
                                   <Eye className="w-3 h-3 text-slate-400" /> Ver
@@ -2507,8 +2507,8 @@ export default function AdminPortal({
                                 <button
                                   onClick={() => handleDeleteTrip(v.id)}
                                   className={`p-1 rounded transition-colors ${isLight
-                                      ? "bg-slate-100 hover:bg-red-50 text-slate-400 hover:text-red-600"
-                                      : "bg-slate-900 hover:bg-slate-800 text-slate-500 hover:text-rose-400"
+                                    ? "bg-slate-100 hover:bg-red-50 text-slate-400 hover:text-red-600"
+                                    : "bg-slate-900 hover:bg-slate-800 text-slate-500 hover:text-rose-400"
                                     }`}
                                   title="Eliminar"
                                 >
@@ -2611,8 +2611,8 @@ export default function AdminPortal({
                   )
                 }
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${isLight
-                    ? "bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300"
-                    : "bg-slate-800 hover:bg-slate-700 text-white"
+                  ? "bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300"
+                  : "bg-slate-800 hover:bg-slate-700 text-white"
                   }`}
               >
                 <FileText className="w-3.5 h-3.5" /> Descargar PDF
@@ -2625,8 +2625,8 @@ export default function AdminPortal({
                   )
                 }
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${isLight
-                    ? "bg-slate-900 hover:bg-slate-800 text-white"
-                    : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
+                  ? "bg-slate-900 hover:bg-slate-800 text-white"
+                  : "bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white"
                   }`}
               >
                 <FileSpreadsheet className="w-3.5 h-3.5" /> Descargar Excel
@@ -2669,12 +2669,12 @@ export default function AdminPortal({
                   setIsRoleModalOpen(false);
                 }}
                 className={`p-3 rounded-lg border cursor-pointer transition-colors flex items-center gap-3 ${currentRole === "admin"
-                    ? isLight
-                      ? "bg-slate-100 border-slate-400 text-slate-900"
-                      : "bg-slate-800/80 border-slate-600 text-white"
-                    : isLight
-                      ? "bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300"
-                      : "bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700"
+                  ? isLight
+                    ? "bg-slate-100 border-slate-400 text-slate-900"
+                    : "bg-slate-800/80 border-slate-600 text-white"
+                  : isLight
+                    ? "bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300"
+                    : "bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700"
                   }`}
               >
                 <div
@@ -2700,12 +2700,12 @@ export default function AdminPortal({
                   setIsRoleModalOpen(false);
                 }}
                 className={`p-3 rounded-lg border cursor-pointer transition-colors flex items-center gap-3 ${currentRole === "operador"
-                    ? isLight
-                      ? "bg-slate-100 border-slate-400 text-slate-900"
-                      : "bg-slate-800/80 border-slate-600 text-white"
-                    : isLight
-                      ? "bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300"
-                      : "bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700"
+                  ? isLight
+                    ? "bg-slate-100 border-slate-400 text-slate-900"
+                    : "bg-slate-800/80 border-slate-600 text-white"
+                  : isLight
+                    ? "bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300"
+                    : "bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700"
                   }`}
               >
                 <div
@@ -2731,12 +2731,12 @@ export default function AdminPortal({
                   setIsRoleModalOpen(false);
                 }}
                 className={`p-3 rounded-lg border cursor-pointer transition-colors flex items-center gap-3 ${currentRole === "estudiante"
-                    ? isLight
-                      ? "bg-slate-100 border-slate-400 text-slate-900"
-                      : "bg-slate-800/80 border-slate-600 text-white"
-                    : isLight
-                      ? "bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300"
-                      : "bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700"
+                  ? isLight
+                    ? "bg-slate-100 border-slate-400 text-slate-900"
+                    : "bg-slate-800/80 border-slate-600 text-white"
+                  : isLight
+                    ? "bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300"
+                    : "bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700"
                   }`}
               >
                 <div
@@ -2811,8 +2811,8 @@ export default function AdminPortal({
                   onChange={(e) => handleSignCodigoChange(e.target.value)}
                   placeholder="Ej: 1020304021"
                   className={`w-full px-3 py-2 rounded-xl border font-mono text-xs sm:text-sm focus:outline-none transition-all ${isLight
-                      ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
-                      : "bg-slate-950 border-slate-700 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                    : "bg-slate-950 border-slate-700 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     }`}
                 />
                 {signFeedback && (
@@ -2835,8 +2835,8 @@ export default function AdminPortal({
                     onChange={(e) => setSignNombres(e.target.value)}
                     placeholder="Ej: Carlos Eduardo"
                     className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none transition-all ${isLight
-                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
-                        : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
+                      ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
+                      : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
                       }`}
                   />
                 </div>
@@ -2852,8 +2852,8 @@ export default function AdminPortal({
                     onChange={(e) => setSignApellidos(e.target.value)}
                     placeholder="Ej: Mendoza Silva"
                     className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none transition-all ${isLight
-                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
-                        : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
+                      ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
+                      : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
                       }`}
                   />
                 </div>
@@ -2868,8 +2868,8 @@ export default function AdminPortal({
                   value={signCarrera}
                   onChange={(e) => setSignCarrera(e.target.value)}
                   className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none cursor-pointer transition-all ${isLight
-                      ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
-                      : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
+                    ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
+                    : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
                     }`}
                 >
                   {UNT_CAREERS.map((c) => (
@@ -2893,8 +2893,8 @@ export default function AdminPortal({
                     onChange={(e) => setSignParadero(e.target.value)}
                     placeholder="Ej: Pacasmayo, Chepén..."
                     className={`w-full px-3 py-2 rounded-xl border text-xs sm:text-sm focus:outline-none transition-all ${isLight
-                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
-                        : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
+                      ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
+                      : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
                       }`}
                   />
                 </div>
@@ -2909,8 +2909,8 @@ export default function AdminPortal({
                     onChange={(e) => setSignTelefono(e.target.value)}
                     placeholder="Ej: 948123456"
                     className={`w-full px-3 py-2 rounded-xl border font-mono text-xs sm:text-sm focus:outline-none transition-all ${isLight
-                        ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
-                        : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
+                      ? "bg-slate-50 border-slate-300 text-slate-900 focus:border-blue-600"
+                      : "bg-slate-950 border-slate-700 text-white focus:border-blue-500"
                       }`}
                   />
                 </div>
@@ -2927,8 +2927,8 @@ export default function AdminPortal({
                   type="button"
                   onClick={() => setIsSignModalOpen(false)}
                   className={`px-4 py-2.5 rounded-xl border text-xs font-semibold transition-colors ${isLight
-                      ? "bg-white hover:bg-slate-100 border-slate-300 text-slate-700"
-                      : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
+                    ? "bg-white hover:bg-slate-100 border-slate-300 text-slate-700"
+                    : "bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300"
                     }`}
                 >
                   Cancelar
@@ -2995,15 +2995,15 @@ export default function AdminPortal({
       {/* ================= BOTTOM MOBILE NAVIGATION BAR ================= */}
       <nav
         className={`md:hidden fixed bottom-0 left-0 right-0 z-40 border-t py-1 px-1 flex items-center justify-around transition-colors duration-200 ${isLight
-            ? "bg-white/95 backdrop-blur-md border-slate-200 shadow-lg text-slate-700"
-            : "bg-[#0d1527]/95 backdrop-blur-md border-slate-800 shadow-lg text-slate-300"
+          ? "bg-white/95 backdrop-blur-md border-slate-200 shadow-lg text-slate-700"
+          : "bg-[#0d1527]/95 backdrop-blur-md border-slate-800 shadow-lg text-slate-300"
           }`}
       >
         <button
           onClick={() => setActiveTab("viaje")}
           className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-lg text-[10px] font-medium transition-all ${activeTab === "viaje"
-              ? isLight ? "text-slate-900 font-bold" : "text-white font-bold"
-              : "text-slate-400 hover:text-slate-600"
+            ? isLight ? "text-slate-900 font-bold" : "text-white font-bold"
+            : "text-slate-400 hover:text-slate-600"
             }`}
         >
           <Compass className={`w-5 h-5 mb-0.5 ${activeTab === "viaje" ? "text-blue-600 stroke-[2.5]" : ""}`} />
@@ -3014,8 +3014,8 @@ export default function AdminPortal({
           <button
             onClick={() => setActiveTab("pasajeros")}
             className={`flex-1 relative flex flex-col items-center justify-center py-1.5 rounded-lg text-[10px] font-medium transition-all ${activeTab === "pasajeros"
-                ? isLight ? "text-slate-900 font-bold" : "text-white font-bold"
-                : "text-slate-400 hover:text-slate-600"
+              ? isLight ? "text-slate-900 font-bold" : "text-white font-bold"
+              : "text-slate-400 hover:text-slate-600"
               }`}
           >
             <div className="relative">
@@ -3034,8 +3034,8 @@ export default function AdminPortal({
           <button
             onClick={() => setActiveTab("estudiantes")}
             className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-lg text-[10px] font-medium transition-all ${activeTab === "estudiantes"
-                ? isLight ? "text-slate-900 font-bold" : "text-white font-bold"
-                : "text-slate-400 hover:text-slate-600"
+              ? isLight ? "text-slate-900 font-bold" : "text-white font-bold"
+              : "text-slate-400 hover:text-slate-600"
               }`}
           >
             <GraduationCap className={`w-5 h-5 mb-0.5 ${activeTab === "estudiantes" ? "text-blue-600 stroke-[2.5]" : ""}`} />
@@ -3047,8 +3047,8 @@ export default function AdminPortal({
           <button
             onClick={() => setActiveTab("historial")}
             className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-lg text-[10px] font-medium transition-all ${activeTab === "historial"
-                ? isLight ? "text-slate-900 font-bold" : "text-white font-bold"
-                : "text-slate-400 hover:text-slate-600"
+              ? isLight ? "text-slate-900 font-bold" : "text-white font-bold"
+              : "text-slate-400 hover:text-slate-600"
               }`}
           >
             <History className={`w-5 h-5 mb-0.5 ${activeTab === "historial" ? "text-blue-600 stroke-[2.5]" : ""}`} />
