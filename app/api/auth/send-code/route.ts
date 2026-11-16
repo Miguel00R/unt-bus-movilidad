@@ -34,30 +34,40 @@ export async function POST(req: NextRequest) {
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutos de validez
 
     // Comprobar si existen credenciales SMTP configuradas en variables de entorno
+    const smtpUser =
+      process.env.GMAIL_USER ||
+      process.env.SMTP_USER ||
+      process.env.EMAIL_USER;
+    const smtpPass =
+      process.env.GMAIL_APP_PASSWORD ||
+      process.env.SMTP_PASS ||
+      process.env.EMAIL_PASS;
     const smtpHost = process.env.SMTP_HOST;
-    const smtpUser = process.env.SMTP_USER || process.env.GMAIL_USER;
-    const smtpPass = process.env.SMTP_PASS || process.env.GMAIL_APP_PASSWORD;
-    const smtpPort = parseInt(process.env.SMTP_PORT || "587", 10);
+    const smtpPort = parseInt(process.env.SMTP_PORT || "465", 10);
 
     let emailSent = false;
     let emailError: string | null = null;
 
-    if (smtpHost && smtpUser && smtpPass) {
+    if (smtpUser && smtpPass) {
       try {
-        const transporter = nodemailer.createTransport({
-          host: smtpHost,
-          port: smtpPort,
-          secure: smtpPort === 465,
-          auth: {
-            user: smtpUser,
-            pass: smtpPass,
-          },
-        });
+        const transportConfig = smtpHost
+          ? {
+              host: smtpHost,
+              port: smtpPort,
+              secure: smtpPort === 465,
+              auth: { user: smtpUser, pass: smtpPass },
+            }
+          : {
+              service: "gmail",
+              auth: { user: smtpUser, pass: smtpPass },
+            };
+
+        const transporter = nodemailer.createTransport(transportConfig);
 
         await transporter.sendMail({
           from: `"Sistema de Movilidad UNT" <${smtpUser}>`,
           to: cleanEmail,
-          subject: `${code} es tu código de recuperación de contraseña UNT`,
+          subject: `${code} es tu código de confirmación UNT`,
           html: `
             <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 540px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
               <div style="background: #0f172a; padding: 24px; text-align: center; border-bottom: 3px solid #d97706;">
@@ -65,7 +75,7 @@ export async function POST(req: NextRequest) {
                 <p style="color: #94a3b8; font-size: 13px; margin: 0;">Sistema de Transporte y Movilidad Universitaria (OGBU)</p>
               </div>
               <div style="padding: 28px 24px;">
-                <h2 style="color: #1e293b; font-size: 16px; margin: 0 0 12px 0;">Código de Confirmación de Seguridad</h2>
+                <h2 style="color: #1e293b; font-size: 16px; margin: 0 0 12px 0;">Código de Verificación de Seguridad</h2>
                 <p style="color: #475569; font-size: 14px; line-height: 1.5; margin: 0 0 20px 0;">
                   Hemos recibido una solicitud para restablecer la contraseña de su cuenta vinculada al correo <strong>${cleanEmail}</strong>.
                 </p>
@@ -75,7 +85,7 @@ export async function POST(req: NextRequest) {
                   <span style="display: block; font-size: 11px; color: #94a3b8; margin-top: 8px;">Válido durante los próximos 10 minutos</span>
                 </div>
                 <p style="color: #64748b; font-size: 12px; line-height: 1.4; margin: 0;">
-                  Si usted no solicitó este cambio, ignore este mensaje. Su cuenta permanecerá segura y su contraseña actual no será modificada.
+                  Copie o digite este código en la pantalla de recuperación. Si usted no solicitó este cambio, ignore este mensaje.
                 </p>
               </div>
               <div style="background: #f1f5f9; padding: 14px 24px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0;">
@@ -86,19 +96,31 @@ export async function POST(req: NextRequest) {
         });
         emailSent = true;
       } catch (err: any) {
-        console.error("Error al enviar email vía SMTP:", err);
+        console.error("Error al enviar email vía Nodemailer:", err);
         emailError = err?.message || "Error al conectar con el servidor de correo";
       }
+    } else {
+      console.warn("Variables SMTP no configuradas. Configure GMAIL_USER y GMAIL_APP_PASSWORD en Vercel.");
+    }
+
+    if (!emailSent && (smtpUser || smtpPass)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Error al despachar el correo: ${emailError || "Revise las credenciales de correo en Vercel."}`,
+        },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
       success: true,
       message: emailSent
         ? `Código enviado exitosamente a ${cleanEmail}`
-        : `Código generado para ${cleanEmail}`,
+        : `Código generado. Configure GMAIL_USER y GMAIL_APP_PASSWORD en Vercel para recibirlo directamente en su bandeja de entrada.`,
       emailSent,
       emailError,
-      code, // Devuelto para permitir pruebas inmediatas si no hay SMTP configurado
+      code,
       expiresAt,
     });
   } catch (error: any) {

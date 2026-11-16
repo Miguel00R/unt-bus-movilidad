@@ -14,9 +14,7 @@ import {
   KeyRound,
   ShieldCheck,
   Send,
-  RefreshCw,
-  Copy,
-  Check
+  RefreshCw
 } from "lucide-react";
 import { Role } from "@/lib/types";
 import { AuthUser, authenticate, registerAccount, resetPassword } from "@/lib/auth";
@@ -51,7 +49,6 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [recGeneratedCode, setRecGeneratedCode] = useState<string>("");
   const [recEmailSent, setRecEmailSent] = useState<boolean>(false);
   const [recCooldown, setRecCooldown] = useState<number>(0);
-  const [codeCopied, setCodeCopied] = useState<boolean>(false);
   const [recNewPassword, setRecNewPassword] = useState<string>("");
   const [recConfirmPassword, setRecConfirmPassword] = useState<string>("");
 
@@ -252,15 +249,6 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
     } catch {
       setIsLoading(false);
       setErrorMsg("Error de conexión al reenviar el código.");
-    }
-  };
-
-  // Copiar código de prueba
-  const handleCopyCode = () => {
-    if (recGeneratedCode) {
-      navigator.clipboard.writeText(recGeneratedCode);
-      setCodeCopied(true);
-      setTimeout(() => setCodeCopied(false), 2000);
     }
   };
 
@@ -820,36 +808,8 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   </button>
                 </div>
                 <p className="text-[11px] text-slate-400 leading-tight">
-                  Revise su bandeja de entrada o spam. El código de 6 dígitos expira en 10 minutos.
+                  Revise su bandeja de entrada o spam. Ingrese el código de 6 dígitos que ha recibido para continuar.
                 </p>
-
-                {/* Banner si el sistema no tiene servidor SMTP propio en la nube */}
-                {!recEmailSent && recGeneratedCode && (
-                  <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between bg-amber-500/10 px-2.5 py-1.5 rounded-lg border border-amber-500/20">
-                    <div className="flex items-center gap-2">
-                      <KeyRound className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                      <div>
-                        <span className="text-[9px] uppercase font-bold text-amber-400 block tracking-wider">
-                          Código de Confirmación:
-                        </span>
-                        <span className="font-mono text-sm font-black tracking-widest text-amber-300">
-                          {recGeneratedCode}
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setRecVerificationCode(recGeneratedCode);
-                        handleCopyCode();
-                      }}
-                      className="px-2 py-1 text-[10px] font-bold rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/40 transition-colors flex items-center gap-1 cursor-pointer"
-                    >
-                      {codeCopied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
-                      <span>{codeCopied ? "¡Copiado!" : "Rellenar"}</span>
-                    </button>
-                  </div>
-                )}
               </div>
 
               {/* Input: Código de Verificación */}
