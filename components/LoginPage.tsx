@@ -106,18 +106,23 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
         );
       }
     } catch {
-      // Respaldo de contingencia local
-      const result = authenticate(identifier, password);
       setIsLoading(false);
-
-      if (result.success && result.user) {
-        onLoginSuccess(result.user);
-      } else {
-        setErrorMsg(
-          result.error ||
-            "Esta cuenta no está registrada. Por favor regístrese primero para poder ingresar."
-        );
+      // Solo permitir contingencia offline para el Administrador oficial
+      if (
+        cleanId === "miguelquesquenrodas@gmail.com" ||
+        cleanId.startsWith("miguelquesquen") ||
+        cleanId === "admin"
+      ) {
+        const result = authenticate(cleanId, password);
+        if (result.success && result.user) {
+          onLoginSuccess(result.user);
+          return;
+        }
       }
+
+      setErrorMsg(
+        "Esta cuenta no está registrada o no se pudo verificar con la base de datos de la UNT. Si es un alumno nuevo, haga clic abajo en 'Registrarse o Crear Cuenta'."
+      );
     }
   };
 

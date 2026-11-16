@@ -88,14 +88,13 @@ export function authenticate(
     };
   }
 
-  // 3. AUTENTICACIÓN DE ALUMNOS (Por código UNT o correo @unitru.edu.pe)
-  let allStudents = [...UNT_STUDENTS];
+  // 3. AUTENTICACIÓN DE ALUMNOS (Solo alumnos registrados)
+  let allStudents: Student[] = [];
   if (typeof window !== "undefined") {
     try {
       const stored = localStorage.getItem("unt_registered_students");
       if (stored) {
-        const customStudents: Student[] = JSON.parse(stored);
-        allStudents = [...customStudents, ...UNT_STUDENTS];
+        allStudents = JSON.parse(stored);
       }
     } catch {
       // ignore
